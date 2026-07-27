@@ -1,0 +1,11 @@
+[Unit]
+Description=Lottery Tool runtime data backup
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/lottery-tool
+Environment=DATA_DIR=/opt/lottery-tool/data
+Environment=BACKUP_DIR=/opt/lottery-tool/backups
+Environment=BACKUP_RETENTION_DAYS=30
+ExecStart=/opt/lottery-tool/scripts/backup-data.sh

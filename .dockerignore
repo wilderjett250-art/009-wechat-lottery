@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.env
+.git
+backups
+data
+secrets
+output
+*.zip
+*.rar
+*.log

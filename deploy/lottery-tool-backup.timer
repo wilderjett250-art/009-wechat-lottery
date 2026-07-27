@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily Lottery Tool runtime data backup
+
+[Timer]
+OnCalendar=*-*-* 03:20:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
