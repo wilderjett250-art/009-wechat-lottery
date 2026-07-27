@@ -1,0 +1,21 @@
+{
+  "name": "lottery-tool",
+  "version": "1.4.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js",
+    "test": "node --test tests/storage.test.js tests/miniprogram-ui.test.js tests/server.test.js",
+    "seed:home": "node scripts/seed-home-activities.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "fast-xml-parser": "5.10.1",
+    "mysql2": "^3.15.3"
+  }
+}
