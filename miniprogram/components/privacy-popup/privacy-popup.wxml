@@ -1,0 +1,18 @@
+<view wx:if="{{visible}}" class="privacy-mask" catchtouchmove="noop">
+  <view class="privacy-dialog" catchtap="noop">
+    <text class="privacy-title">隐私保护提示</text>
+    <view class="privacy-copy">
+      为提供账号资料、图片上传、区域校验和收货地址等功能，需要你阅读并同意
+      <text class="privacy-link" bindtap="openPrivacyContract">{{contractName}}</text>
+    </view>
+    <view class="privacy-actions">
+      <button class="privacy-cancel" bindtap="handleDisagreePrivacyAuthorization">暂不同意</button>
+      <button
+        id="privacy-agree-button"
+        class="privacy-agree"
+        open-type="agreePrivacyAuthorization"
+        bindagreeprivacyauthorization="handleAgreePrivacyAuthorization"
+      >同意并继续</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<view class="records-page reference-records">
+  <view class="record-tabs">
+    <view class="record-tab {{recentClass}}" data-tab="recent" bindtap="switchTab">最近浏览</view>
+    <view class="record-tab {{createdClass}}" data-tab="created" bindtap="switchTab">我发起的</view>
+    <view class="record-tab {{joinedClass}}" data-tab="joined" bindtap="switchTab">我参与的</view>
+    <view class="record-tab {{wonClass}}" data-tab="won" bindtap="switchTab">中奖记录</view>
+  </view>
+
+  <view class="recommend-strip">
+    <text class="recommend-bell">!</text>
+    <text class="recommend-text">为你推荐每日福利，锦鲤可能就是你哦</text>
+    <view class="recommend-action" bindtap="openRecommend">立即参与</view>
+  </view>
+
+  <view wx:if="{{records.length}}" class="record-list">
+    <view class="record-card" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" bindtap="openActivity">
+      <image src="{{item.image}}" mode="aspectFill" />
+      <view class="record-info">
+        <text class="record-title">{{item.title}}</text>
+        <text class="record-time">{{item.recordMeta}}</text>
+      </view>
+      <text class="record-status {{item.statusClass}}">{{item.statusText}}</text>
+    </view>
+    <text class="record-note">{{recordNote}}</text>
+  </view>
+
+  <view class="record-empty-card" wx:else>
+    <view class="empty-document">
+      <view class="empty-paper">
+        <text></text>
+        <text></text>
+        <text></text>
+      </view>
+      <view class="empty-pencil"></view>
+    </view>
+    <text>{{emptyText}}</text>
+  </view>
+</view>

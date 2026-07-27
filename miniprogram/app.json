@@ -1,0 +1,75 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/create/create",
+    "pages/official-account/official-account",
+    "pages/official-account-auth/official-account-auth",
+    "pages/annual-intro/annual-intro",
+    "pages/launch/launch",
+    "pages/recent-winner-range/recent-winner-range",
+    "pages/records/records",
+    "pages/profile/profile",
+    "pages/creator-tools/creator-tools",
+    "pages/wallet/wallet",
+    "pages/coupons/coupons",
+    "pages/orders/orders",
+    "pages/messages/messages",
+    "pages/settings/settings",
+    "pages/address/address",
+    "pages/help/help",
+    "pages/mall/mall",
+    "pages/premium/premium",
+    "pages/home-promotion/home-promotion",
+    "pages/smart-promotion/smart-promotion",
+    "pages/personal/personal",
+    "pages/partnership/partnership",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F3F3F3",
+    "backgroundTextStyle": "dark"
+  },
+  "usingComponents": {
+    "privacy-popup": "/components/privacy-popup/privacy-popup"
+  },
+  "tabBar": {
+    "color": "#111827",
+    "selectedColor": "#C80F2E",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/tab-home.png",
+        "selectedIconPath": "assets/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "发起抽奖",
+        "iconPath": "assets/tab-gift.png",
+        "selectedIconPath": "assets/tab-gift-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/tab-mine.png",
+        "selectedIconPath": "assets/tab-mine-active.png"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于设置和校验抽奖活动允许参与的区域"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation"
+  ],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,27 @@
+<view class="partnership-page">
+  <view class="partnership-hero">
+    <text>推广合作</text>
+    <text>品牌活动、奖品供应、联合运营与企业抽奖服务</text>
+  </view>
+
+  <view class="partnership-form">
+    <view class="form-row">
+      <text>公司或品牌</text>
+      <input value="{{form.company}}" data-field="company" bindinput="updateField" maxlength="100" placeholder="选填" />
+    </view>
+    <view class="form-row required">
+      <text>联系人</text>
+      <input value="{{form.contactName}}" data-field="contactName" bindinput="updateField" maxlength="40" placeholder="请输入联系人" />
+    </view>
+    <view class="form-row required">
+      <text>联系电话</text>
+      <input value="{{form.phone}}" data-field="phone" bindinput="updateField" maxlength="30" type="text" placeholder="手机号或微信号" />
+    </view>
+    <view class="form-textarea required">
+      <text>合作需求</text>
+      <textarea value="{{form.needs}}" data-field="needs" bindinput="updateField" maxlength="500" placeholder="请说明合作目标、活动规模和时间安排" />
+      <text>{{form.needs.length}}/500</text>
+    </view>
+  </view>
+  <button class="partnership-submit" loading="{{submitting}}" disabled="{{submitting}}" bindtap="submit">提交合作申请</button>
+</view>

@@ -1,0 +1,26 @@
+<view class="asset-page">
+  <view class="wallet-hero">
+    <text>红包余额</text>
+    <view><text class="wallet-symbol">¥</text><text class="wallet-number">{{balance}}</text></view>
+    <text class="wallet-freeze">冻结金额 ¥{{frozen}}</text>
+    <button class="wallet-withdraw" loading="{{withdrawing}}" bindtap="withdraw">提现</button>
+  </view>
+
+  <view class="asset-section-title">余额明细</view>
+  <view class="asset-list">
+    <view class="asset-row" wx:for="{{records}}" wx:key="id">
+      <view>
+        <text class="asset-row-title">{{item.title}}</text>
+        <text class="asset-row-sub">{{item.dateText}}</text>
+      </view>
+      <view class="wallet-record-side">
+        <text class="asset-amount {{item.amountClass}}">{{item.amountText}}</text>
+        <text wx:if="{{item.statusText}}">{{item.statusText}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="asset-empty" wx:if="{{!records.length}}">
+    <text>暂无余额明细</text>
+    <text>红包奖励和提现记录会显示在这里</text>
+  </view>
+</view>

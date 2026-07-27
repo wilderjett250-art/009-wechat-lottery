@@ -1,0 +1,355 @@
+<view class="launch-page reference-launch">
+  <view class="form-navbar" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <view class="form-back" bindtap="goBack" aria-role="button" aria-label="返回上一级"><view class="form-back-icon"></view></view>
+    <text>{{pageTitle}}</text>
+    <view class="form-nav-spacer"></view>
+  </view>
+
+  <scroll-view class="launch-content" style="top: {{navMetrics.navHeight}}px; height: calc(100vh - {{navMetrics.navHeight}}px);" scroll-y enhanced show-scrollbar="{{false}}">
+    <scroll-view wx:if="{{!standalone}}" class="template-strip" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="template-strip-row">
+        <view class="template-tab {{item.active ? 'active' : ''}}" wx:for="{{templateOptions}}" wx:key="key" data-key="{{item.key}}" bindtap="selectTemplate">
+          <text class="template-tab-icon">{{item.icon}}</text>
+          <text>{{item.title}}</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view wx:if="{{typeIntroText}}" class="type-intro-row" bindtap="openGuide" data-title="{{typeIntroText}}">
+      <text class="type-intro-icon">▤</text><text>{{typeIntroText}}</text><text class="row-arrow">›</text>
+    </view>
+    <view wx:if="{{styleName}}" class="type-intro-row style-intro-row">
+      <text class="type-intro-icon">◆</text><text>{{styleName}}抽奖样式</text><text class="type-intro-status">已选择</text>
+    </view>
+
+    <view class="create-form-title simple-section-title">
+      <text>{{sectionLabel}}</text>
+      <text class="create-help" bindtap="openGuide" data-title="案例玩法">案例玩法</text>
+    </view>
+
+    <view class="create-form-panel prize-main-panel">
+      <view class="create-preview {{isFun ? 'fun-create-preview' : ''}}">
+        <view class="change-image" bindtap="replaceImage">▧ 更换图片</view>
+        <image wx:if="{{activePrize.image}}" class="custom-prize-image" src="{{activePrize.image}}" mode="aspectFill" />
+        <view wx:elif="{{isFun}}" class="fun-gift-stage">
+          <view class="fun-gift-box"><text>?</text></view><view class="fun-small-gift">!</view>
+        </view>
+        <view wx:else class="gift-stage">
+          <view class="gift-box">
+            <view class="gift-ribbon-x"></view>
+            <view class="gift-ribbon-y"></view>
+            <view class="gift-bow"></view>
+          </view>
+          <view class="gift-envelope">開</view>
+        </view>
+      </view>
+
+      <scroll-view class="prize-list-scroll" scroll-x enhanced show-scrollbar="{{false}}" wx:if="{{prizes.length > 1}}">
+        <view class="prize-list-row">
+          <view class="prize-list-item {{index === activePrizeIndex ? 'active' : ''}}" wx:for="{{prizes}}" wx:key="clientId" data-index="{{index}}" bindtap="selectPrize">
+            <text>{{item.name || ('奖项 ' + (index + 1))}}</text>
+            <text>{{item.type}} · {{item.quantity}} 份</text>
+            <text class="prize-remove" data-index="{{index}}" catchtap="removePrize">×</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <scroll-view wx:if="{{!isAnnual}}" class="prize-type-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="prize-type-row">
+          <view class="prize-type {{item.className}}" wx:for="{{prizeTypeTabs}}" wx:key="title" data-title="{{item.title}}" bindtap="selectPrizeType">{{item.title}}</view>
+        </view>
+      </scroll-view>
+
+      <view class="form-row {{isFun ? 'fun-name-row' : ''}}">
+        <text>奖品名称</text>
+        <input value="{{activePrize.name}}" data-field="name" bindinput="onPrizeInput" maxlength="24" placeholder="输入奖品名称，最多 24 个字" />
+        <button wx:if="{{isFun}}" class="fun-random-button" bindtap="randomizeFunPrize">换一个</button>
+      </view>
+      <view class="form-row">
+        <text>奖品份数</text>
+        <input value="{{activePrize.quantity}}" data-field="quantity" type="number" bindinput="onPrizeInput" placeholder="输入份数" />
+      </view>
+      <view class="form-row" wx:if="{{activePrize.type === '优惠券' || activePrize.type === '红包'}}">
+        <text>{{activePrize.type}}面额</text>
+        <input value="{{activePrize.faceValue}}" data-field="faceValue" type="digit" bindinput="onPrizeInput" placeholder="输入每份金额" />
+      </view>
+      <view class="form-row form-row-action" bindtap="chooseDeliveryMethod">
+        <text>奖品发放方式</text>
+        <view class="row-action-value"><text>{{activePrize.deliveryMethod}}</text><text class="row-arrow">›</text></view>
+      </view>
+      <view class="form-row" wx:if="{{form.unlockByPeople}}">
+        <text>奖品解锁人数</text>
+        <input wx:if="{{activePrizeIndex < prizes.length - 1}}" value="{{activePrize.unlockParticipants}}" data-field="unlockParticipants" type="number" bindinput="onPrizeInput" placeholder="输入解锁人数" />
+        <text wx:else class="row-muted">末等奖项不可设置</text>
+      </view>
+      <view class="add-prize" bindtap="addPrize">＋ 添加奖项</view>
+    </view>
+
+    <block wx:if="{{isAnnual}}">
+      <view class="create-form-title simple-section-title"><text>品牌信息（建议填写，以获得完整体验）</text></view>
+      <view class="create-form-panel annual-config-panel">
+        <view class="form-row"><text>公司名称</text><input value="{{annualConfig.companyName}}" data-field="companyName" bindinput="onSpecialInput" maxlength="40" placeholder="请输入简称" /></view>
+        <view class="form-row"><text>活动主题</text><input value="{{annualConfig.activityTheme}}" data-field="activityTheme" bindinput="onSpecialInput" maxlength="40" placeholder="年会抽奖" /></view>
+        <view class="form-row form-row-action" data-field="brandLogo" bindtap="chooseAnnualImage"><text>品牌 Logo</text><view class="annual-image-value"><image wx:if="{{annualConfig.brandLogo}}" src="{{annualConfig.brandLogo}}" mode="aspectFill" /><text>{{annualConfig.brandLogo ? '重新上传' : '点击上传'}}</text><text class="row-arrow">›</text></view></view>
+        <view class="form-row form-row-action" data-field="backgroundImage" bindtap="chooseAnnualImage"><text>自定义背景图</text><view class="annual-image-value"><image wx:if="{{annualConfig.backgroundImage}}" src="{{annualConfig.backgroundImage}}" mode="aspectFill" /><text>{{annualConfig.backgroundImage ? '重新上传' : '默认'}}</text><text class="row-arrow">›</text></view></view>
+      </view>
+    </block>
+
+    <view class="create-form-title simple-section-title">
+      <text>开奖设置</text>
+      <text class="create-help" bindtap="openGuide" data-title="开奖方式介绍">开奖方式介绍</text>
+    </view>
+    <view class="create-form-panel">
+      <view class="draw-mode-row">
+        <view class="draw-mode {{item.className}}" wx:for="{{drawModeTabs}}" wx:key="key" data-key="{{item.key}}" bindtap="selectDrawMode">{{item.title}}</view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'time'}}" class="form-row">
+        <text>开奖时间</text>
+        <view class="date-pickers">
+          <picker mode="date" value="{{form.drawDate}}" bindchange="onDateChange"><text>{{form.drawDate}}</text></picker>
+          <picker mode="time" value="{{form.drawTime}}" bindchange="onTimeChange"><text>{{form.drawTime}}</text></picker>
+          <text class="row-arrow">›</text>
+        </view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'people'}}" class="form-row">
+        <text>达到指定人数自动开奖</text>
+        <view class="number-input-with-unit"><input value="{{form.drawParticipantTarget}}" data-field="drawParticipantTarget" type="number" bindinput="onInput" placeholder="输入人数" /><text>人</text></view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'people'}}" class="form-row">
+        <text>未达到人数自动开奖时间</text>
+        <view class="date-pickers">
+          <picker mode="date" value="{{form.drawDate}}" bindchange="onDateChange"><text>{{form.drawDate}}</text></picker>
+          <picker mode="time" value="{{form.drawTime}}" bindchange="onTimeChange"><text>{{form.drawTime}}</text></picker>
+          <text class="row-arrow">›</text>
+        </view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'instant'}}" class="form-row form-row-action" bindtap="chooseInstantPerUserLimit">
+        <text>单人参与次数限制</text>
+        <view class="row-action-value"><text>每人限抽 {{form.instantPerUserLimit}} 次</text><text class="row-arrow">›</text></view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'instant'}}" class="form-row">
+        <view class="row-label-with-help"><text>参与人数上限</text><text>说明</text></view>
+        <view class="number-input-with-unit"><input value="{{form.instantParticipantLimit}}" data-field="instantParticipantLimit" type="number" bindinput="onInput" placeholder="输入至少 5" /><text>人</text></view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'instant' && formErrors.instantParticipantLimit}}" class="form-error">{{formErrors.instantParticipantLimit}}</view>
+      <view wx:if="{{activeDrawMode === 'instant'}}" class="form-row">
+        <text>抽奖截止时间</text>
+        <view class="date-pickers">
+          <picker mode="date" value="{{form.drawDate}}" bindchange="onDateChange"><text>{{form.drawDate}}</text></picker>
+          <picker mode="time" value="{{form.drawTime}}" bindchange="onTimeChange"><text>{{form.drawTime}}</text></picker>
+          <text class="row-arrow">›</text>
+        </view>
+      </view>
+      <view wx:if="{{activeDrawMode === 'instant' && formErrors.instantDeadline}}" class="form-error">{{formErrors.instantDeadline}}</view>
+      <view wx:if="{{activeDrawMode !== 'instant'}}" class="form-row form-row-switch">
+        <text>按参与人数依次解锁奖品</text>
+        <switch checked="{{form.unlockByPeople}}" bindchange="toggleUnlock" color="#ef443c" />
+      </view>
+    </view>
+
+    <view class="create-form-title simple-section-title">
+      <text>抽奖介绍（非必填）</text>
+      <text class="create-help" bindtap="openGuide" data-title="查看示例">查看示例</text>
+    </view>
+    <view class="create-form-panel">
+      <view class="organizer-row">
+        <text>抽奖发起人</text>
+        <text class="organizer-action">设置引流信息 ›</text>
+      </view>
+      <view class="creator-box" bindtap="goLogin">
+        <image src="{{creatorAvatar}}" mode="aspectFill" />
+        <text>{{creatorName}}</text>
+      </view>
+      <view class="intro-title">抽奖说明</view>
+      <textarea class="intro-textarea" value="{{form.description}}" data-field="description" bindinput="onInput" maxlength="300" placeholder="请输入抽奖说明" />
+      <view class="form-row lead-info-row">
+        <text>引流信息</text>
+        <input value="{{form.leadInfo}}" data-field="leadInfo" bindinput="onInput" maxlength="80" placeholder="填写兑奖联系人或门店说明" />
+      </view>
+      <view class="intro-image-grid" wx:if="{{form.introImages.length}}">
+        <view class="intro-image-item" wx:for="{{form.introImages}}" wx:key="*this">
+          <image src="{{item}}" mode="aspectFill" />
+          <text data-index="{{index}}" bindtap="removeIntroImage">×</text>
+        </view>
+      </view>
+      <view class="copy-box" bindtap="addIntroImages">＋ 可添加图文介绍 / 一键复制框</view>
+    </view>
+
+    <view wx:if="{{isAnnual}}" class="condition-list annual-option-list">
+      <view class="condition-item"><view class="condition-row"><view><text>向中奖者显示联系方式</text></view><switch data-field="showWinnerContact" checked="{{annualConfig.showWinnerContact}}" color="#ef3f36" bindchange="toggleAnnualOption" /></view></view>
+      <view class="condition-item"><view class="condition-row" bindtap="editCandidateUnionIds"><view><text>仅在指定身份名单中抽取</text></view><view class="group-config-value muted"><text>{{annualConfig.candidateUnionIds ? '已设置' : '未设置'}}</text><text class="row-arrow">›</text></view></view></view>
+      <view class="condition-item"><view class="condition-row"><view><text>仅在「企业微信」内可参与</text></view><switch data-field="onlyWecom" checked="{{annualConfig.onlyWecom}}" color="#ef3f36" bindchange="toggleAnnualOption" /></view></view>
+    </view>
+
+    <view wx:if="{{!isAnnual && !isFun}}" class="more-toggle" bindtap="toggleMoreFeatures">
+      <text>{{moreExpanded ? '⌃ 收起更多功能' : '⌄ 展开更多功能'}}</text>
+    </view>
+
+    <block wx:if="{{moreExpanded && !isAnnual && !isFun}}">
+      <view class="create-form-title condition-title"><text>分享与推广</text></view>
+      <view class="condition-list">
+        <view class="condition-row" wx:for="{{promotionItems}}" wx:key="key" data-key="{{item.key}}" bindtap="togglePromotion">
+          <view><text>{{item.title}}</text><text class="condition-link">{{item.linkText}}</text></view>
+          <switch checked="{{item.checked}}" color="#ef3f36" />
+        </view>
+      </view>
+
+      <view wx:for="{{conditionGroups}}" wx:key="title">
+        <view class="create-form-title condition-title"><text>{{item.title}}</text></view>
+        <view class="condition-list">
+          <block wx:for="{{item.items}}" wx:for-item="condition" wx:key="key">
+            <view class="condition-item">
+              <view class="condition-row" data-key="{{condition.key}}" data-disabled="{{condition.disabled}}" bindtap="toggleCondition">
+                <view><text>{{condition.title}}</text><text class="condition-link" wx:if="{{condition.linkText}}" catchtap="openGuide" data-title="{{condition.linkText}}">{{condition.linkText}}</text></view>
+                <switch class="condition-switch" checked="{{condition.checked}}" disabled="{{condition.disabled}}" color="#ef3f36" />
+              </view>
+
+              <view wx:if="{{condition.key === 'assist' && condition.checked}}" class="condition-config-panel assist-config-panel">
+                <view class="assist-config-row">
+                  <text>每次助力增加权重</text>
+                  <view class="assist-config-input"><input data-field="assistWeight" value="{{conditionConfig.assistWeight}}" bindinput="onConditionConfigInput" type="number" maxlength="2" /><text>次</text></view>
+                </view>
+                <view class="assist-config-row">
+                  <text>每人最多获得助力</text>
+                  <view class="assist-config-input"><input data-field="assistLimit" value="{{conditionConfig.assistLimit}}" bindinput="onConditionConfigInput" type="number" maxlength="2" /><text>人</text></view>
+                </view>
+                <text class="assist-config-tip">参与者基础权重为 1，达到上限后不再增加中奖机会。</text>
+              </view>
+              <view wx:if="{{condition.key === 'checkIn' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="checkIn" bindtap="openConditionEditor"><text>设置打卡内容</text><view class="group-config-value muted"><text>{{conditionConfig.checkInTitle || '点击设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'groupOnly' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" bindtap="chooseGroupType"><text>微信群类型</text><view class="group-config-value"><text>{{groupTypeLabel}}</text><text class="row-arrow">›</text></view></view>
+                <view wx:if="{{groupType === 'wecom'}}" class="group-config-row" bindtap="selectEnterprise"><text>选择客户群</text><view class="group-config-value muted"><text>{{selectedEnterprise ? selectedEnterprise.name : '点击选择'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'fansOnly' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" bindtap="showOfficialAccountConfig"><text>选择公众号</text><view class="group-config-value muted"><text>{{capabilities.officialAccount.configured ? capabilities.officialAccount.name : '未设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'review' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="review" bindtap="openConditionEditor"><text>设置审核内容</text><view class="group-config-value muted"><text>{{conditionConfig.reviewPrompt ? '已设置' : '点击设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'wecom' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" bindtap="showWecomConfig"><text>选择所在的企业</text><view class="group-config-value muted"><text>{{capabilities.wecom.configured ? capabilities.wecom.name : '暂无企业，去设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'region' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="region" bindtap="openConditionEditor"><text>指定区域范围</text><view class="group-config-value muted"><text>{{regionConfig ? regionConfig.name : '未设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'survey' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="survey" bindtap="openConditionEditor"><text>设置问卷</text><view class="group-config-value muted"><text>{{surveyQuestions[0].title ? ('已设置 ' + surveyQuestions.length + ' 题') : '点击设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'task' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="task" bindtap="openConditionEditor"><text>点击设置任务</text><view class="group-config-value muted"><text>{{conditionConfig.taskText || '小红书、视频号等多种类型'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'answer' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="answer" bindtap="openConditionEditor"><text>设置答题</text><view class="group-config-value muted"><text>{{conditionConfig.answerQuestion ? '已设置' : '点击设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+              <view wx:if="{{condition.key === 'vote' && condition.checked}}" class="condition-config-panel">
+                <view class="group-config-row" data-key="vote" bindtap="openConditionEditor"><text>设置投票</text><view class="group-config-value muted"><text>{{conditionConfig.voteQuestion ? '已设置' : '点击设置'}}</text><text class="row-arrow">›</text></view></view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+    </block>
+
+    <view wx:if="{{!isAnnual && !isFun}}" class="advanced-panel">
+      <view class="advanced-head" bindtap="toggleAdvanced">
+        <view class="advanced-badge">◆</view>
+        <view class="advanced-copy"><text>高级功能</text><text>安全、纯净、参与者运营与数据统计等多项特权</text></view>
+        <switch checked="{{advancedEnabled}}" color="#ef3f36" />
+      </view>
+      <view wx:if="{{advancedEnabled}}" class="advanced-options">
+        <block wx:for="{{advancedItems}}" wx:key="key">
+          <view wx:if="{{item.key === 'cleanDisplay' || item.key === 'exclusiveLanding' || item.key === 'analytics'}}" class="advanced-benefit-row">
+            <text>{{item.title}}</text>
+            <view class="advanced-benefit-copy"><text>{{item.desc}}</text><text class="advanced-info">i</text></view>
+          </view>
+          <view wx:else class="advanced-row">
+            <view><text>{{item.title}}</text></view>
+            <switch data-key="{{item.key}}" checked="{{item.checked}}" color="#ef3f36" bindchange="toggleAdvancedOption" />
+          </view>
+        </block>
+        <view class="advanced-config-row" wx:if="{{advancedValues.recentWinnerBlock}}" bindtap="openRecentWinnerPicker">
+          <view>
+            <text>近期抽奖范围</text>
+            <text>仅校验所选抽奖的真实中奖记录</text>
+          </view>
+          <text>{{recentWinnerActivityIds.length ? '已选择 ' + recentWinnerActivityIds.length + ' 个' : '点击选择'}} ›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="launch-safe-space"></view>
+  </scroll-view>
+
+  <view class="create-bottom-bar {{isAnnual || isFun ? 'single-action' : ''}} {{isFun ? 'fun-action' : ''}}">
+    <button wx:if="{{!isAnnual && !isFun}}" class="test-button" data-status="draft" bindtap="submit">发起测试</button>
+    <button class="launch-button" data-status="live" bindtap="submit">{{launchButtonText}}</button>
+  </view>
+</view>
+<view wx:if="{{conditionEditor.visible}}" class="condition-editor-mask" bindtap="closeConditionEditor" catchtouchmove="noop">
+  <view class="condition-editor-sheet" catchtap="noop">
+    <view class="condition-editor-head"><text>{{conditionEditor.title}}</text><text class="condition-editor-close" bindtap="closeConditionEditor">×</text></view>
+    <scroll-view scroll-y class="condition-editor-body">
+      <view wx:if="{{conditionEditor.key === 'review'}}" class="condition-editor-field">
+        <text>审核内容</text>
+        <textarea value="{{conditionConfig.reviewPrompt}}" data-field="reviewPrompt" bindinput="onConditionConfigInput" maxlength="160" placeholder="填写参与者提交审核时需要说明的内容" />
+      </view>
+      <view wx:if="{{conditionEditor.key === 'region'}}">
+        <view class="condition-editor-action" bindtap="chooseRegion"><text>中心位置</text><text>{{regionConfig ? regionConfig.name : '点击选择'}} ›</text></view>
+        <view class="condition-editor-field"><text>允许半径（米）</text><input type="number" value="{{regionConfig ? regionConfig.radiusMeters : ''}}" bindinput="onRegionRadiusInput" maxlength="5" placeholder="1000" /></view>
+      </view>
+      <view wx:if="{{conditionEditor.key === 'survey'}}">
+        <view class="condition-editor-field survey-editor-field" wx:for="{{surveyQuestions}}" wx:key="id">
+          <view><text>必答问题 {{index + 1}}</text><text wx:if="{{surveyQuestions.length > 1}}" class="remove-question" data-index="{{index}}" bindtap="removeSurveyQuestion">删除</text></view>
+          <input data-index="{{index}}" value="{{item.title}}" bindinput="onSurveyQuestionInput" maxlength="100" placeholder="输入参与者需要回答的问题" />
+        </view>
+        <view class="add-question" bindtap="addSurveyQuestion">＋ 添加问题</view>
+      </view>
+      <view wx:if="{{conditionEditor.key === 'task'}}" class="condition-editor-field">
+        <text>任务要求</text>
+        <textarea value="{{conditionConfig.taskText}}" data-field="taskText" bindinput="onConditionConfigInput" maxlength="160" placeholder="填写参与前需要完成的任务" />
+        <view class="task-proof-setting">
+          <view><text>上传截图凭证</text><text>用户提交后由运营审核，通过才可参与抽奖</text></view>
+          <switch checked="{{conditionConfig.taskProofRequired}}" color="#ef3f36" bindchange="onTaskProofRequirementChange" />
+        </view>
+      </view>
+      <view wx:if="{{conditionEditor.key === 'checkIn'}}">
+        <view class="condition-editor-field">
+          <text>打卡任务名称</text>
+          <input value="{{conditionConfig.checkInTitle}}" data-field="checkInTitle" bindinput="onConditionConfigInput" maxlength="40" placeholder="例如：浏览活动介绍" />
+        </view>
+        <view class="condition-editor-field checkin-duration-field">
+          <text>完成时长</text>
+          <view><input value="{{conditionConfig.checkInDurationSeconds}}" data-field="checkInDurationSeconds" bindinput="onConditionConfigInput" type="number" maxlength="3" placeholder="15" /><text>秒</text></view>
+        </view>
+        <view class="condition-editor-field">
+          <text>任务说明</text>
+          <textarea value="{{conditionConfig.checkInGuideText}}" data-field="checkInGuideText" bindinput="onConditionConfigInput" maxlength="80" placeholder="告诉参与者完成什么后可以打卡" />
+        </view>
+        <view class="condition-editor-field">
+          <text>权重奖励</text>
+          <radio-group class="checkin-reward-mode" bindchange="onCheckInRewardModeChange">
+            <label><radio value="fixed" checked="{{conditionConfig.checkInRewardMode === 'fixed'}}" color="#ef3f36" />固定奖励</label>
+            <label><radio value="random" checked="{{conditionConfig.checkInRewardMode === 'random'}}" color="#ef3f36" />随机奖励</label>
+          </radio-group>
+          <view wx:if="{{conditionConfig.checkInRewardMode === 'fixed'}}" class="checkin-reward-input"><text>完成后获得</text><input value="{{conditionConfig.checkInRewardMin}}" data-field="checkInRewardMin" bindinput="onConditionConfigInput" type="number" maxlength="2" /><text>倍抽奖权重</text></view>
+          <view wx:else class="checkin-reward-input"><text>随机获得</text><input value="{{conditionConfig.checkInRewardMin}}" data-field="checkInRewardMin" bindinput="onConditionConfigInput" type="number" maxlength="2" /><text>至</text><input value="{{conditionConfig.checkInRewardMax}}" data-field="checkInRewardMax" bindinput="onConditionConfigInput" type="number" maxlength="2" /><text>倍抽奖权重</text></view>
+          <text class="checkin-editor-tip">参与者先加入抽奖名单，再由服务端按设定时长完成打卡；奖励会与好友助力叠加计算。</text>
+        </view>
+      </view>
+      <view wx:if="{{conditionEditor.key === 'answer'}}">
+        <view class="condition-editor-field"><text>题目</text><input value="{{conditionConfig.answerQuestion}}" data-field="answerQuestion" bindinput="onConditionConfigInput" maxlength="120" placeholder="输入参与问题" /></view>
+        <view class="condition-editor-field"><text>正确答案</text><input value="{{conditionConfig.answerValue}}" data-field="answerValue" bindinput="onConditionConfigInput" maxlength="120" placeholder="输入正确答案" /></view>
+      </view>
+      <view wx:if="{{conditionEditor.key === 'vote'}}">
+        <view class="condition-editor-field"><text>投票题目</text><input value="{{conditionConfig.voteQuestion}}" data-field="voteQuestion" bindinput="onConditionConfigInput" maxlength="120" placeholder="输入投票题目" /></view>
+        <view class="condition-editor-field"><text>选项一</text><input value="{{conditionConfig.voteOptionA}}" data-field="voteOptionA" bindinput="onConditionConfigInput" maxlength="80" placeholder="输入选项" /></view>
+        <view class="condition-editor-field"><text>选项二</text><input value="{{conditionConfig.voteOptionB}}" data-field="voteOptionB" bindinput="onConditionConfigInput" maxlength="80" placeholder="输入选项" /></view>
+      </view>
+    </scroll-view>
+    <button class="condition-editor-done" bindtap="closeConditionEditor">完成</button>
+  </view>
+</view>
+<privacy-popup />

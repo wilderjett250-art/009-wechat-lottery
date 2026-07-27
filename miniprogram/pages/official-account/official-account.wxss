@@ -1,0 +1,156 @@
+.authorization-page {
+  height: 100vh;
+  overflow: hidden;
+  color: #171717;
+  background: #f3f3f3;
+}
+
+.authorization-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  display: grid;
+  padding-right: 28rpx;
+  padding-left: 28rpx;
+  box-sizing: border-box;
+  grid-template-columns: 88rpx 1fr 88rpx;
+  align-items: center;
+  border-bottom: 2rpx solid #ededed;
+  background: #fff;
+}
+
+.authorization-nav > text {
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.authorization-back {
+  display: flex;
+  width: 76rpx;
+  height: 76rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.authorization-back-icon {
+  width: 22rpx;
+  height: 22rpx;
+  margin-left: 8rpx;
+  border-bottom: 4rpx solid #111;
+  border-left: 4rpx solid #111;
+  transform: rotate(45deg);
+}
+
+.authorization-content {
+  position: absolute;
+  right: 0;
+  left: 0;
+  padding: 36rpx 28rpx 80rpx;
+  box-sizing: border-box;
+}
+
+.authorization-label {
+  display: block;
+  margin-bottom: 28rpx;
+  color: #7c7c7c;
+  font-size: 28rpx;
+}
+
+.authorization-add {
+  display: flex;
+  height: 126rpx;
+  margin-bottom: 20rpx;
+  align-items: center;
+  justify-content: center;
+  gap: 14rpx;
+  border-radius: 16rpx;
+  color: #df423a;
+  background: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.authorization-add-icon {
+  margin-top: -4rpx;
+  font-size: 52rpx;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.account-option,
+.none-option {
+  display: flex;
+  min-height: 124rpx;
+  margin-bottom: 18rpx;
+  padding: 22rpx 36rpx;
+  box-sizing: border-box;
+  align-items: center;
+  border: 2rpx solid transparent;
+  border-radius: 16rpx;
+  background: #fff;
+}
+
+.account-option {
+  gap: 22rpx;
+}
+
+.account-avatar {
+  display: flex;
+  width: 70rpx;
+  height: 70rpx;
+  flex: 0 0 70rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #df423a;
+  font-size: 28rpx;
+}
+
+.account-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.account-name {
+  overflow: hidden;
+  font-size: 30rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-username {
+  overflow: hidden;
+  color: #939393;
+  font-size: 23rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.none-option {
+  justify-content: space-between;
+  font-size: 32rpx;
+}
+
+.none-option.selected {
+  border-color: #df423a;
+  background: #fff2f2;
+}
+
+.selection-dot {
+  width: 28rpx;
+  height: 28rpx;
+  border: 2rpx solid #c8c8c8;
+  border-radius: 50%;
+}
+
+.selection-dot.selected {
+  border: 8rpx solid #df423a;
+  box-sizing: border-box;
+}

@@ -1,0 +1,22 @@
+<view class="promotion-page">
+  <view class="promotion-intro">
+    <text>首页推广</text>
+    <text>将公开进行中的抽奖加入首页“官方大奖”区域，关闭后立即停止推荐。</text>
+  </view>
+
+  <view class="promotion-list" wx:if="{{activities.length}}">
+    <view class="promotion-card" wx:for="{{activities}}" wx:key="id">
+      <image src="{{item.image}}" mode="aspectFill" />
+      <view class="promotion-copy">
+        <text>{{item.title}}</text>
+        <text>{{item.participantCount}} 人参与 · {{item.status === 'live' ? '进行中' : '未公开'}}</text>
+      </view>
+      <switch data-id="{{item.id}}" checked="{{item.promotionEnabled}}" disabled="{{item.status !== 'live'}}" color="#ef443c" bindchange="togglePromotion" />
+    </view>
+  </view>
+
+  <view class="promotion-empty" wx:elif="{{!loading}}">
+    <text>还没有可推广的抽奖</text>
+    <button bindtap="createActivity">去发起抽奖</button>
+  </view>
+</view>

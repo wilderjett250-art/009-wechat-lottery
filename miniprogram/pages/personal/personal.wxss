@@ -1,0 +1,16 @@
+.personal-page { min-height: 100vh; padding: 24rpx; box-sizing: border-box; background: #f3f4f6; }
+.personal-header { display: flex; align-items: center; padding: 34rpx 30rpx; border-radius: 14rpx; background: #fff; }
+.personal-header image { width: 104rpx; height: 104rpx; margin-right: 24rpx; border-radius: 50%; background: #eceef1; }
+.personal-header > view { display: flex; min-width: 0; flex: 1; flex-direction: column; }
+.personal-name { color: #1d222b; font-size: 34rpx; font-weight: 700; }
+.personal-level { margin-top: 10rpx; color: #8b919a; font-size: 23rpx; }
+.personal-title { margin: 30rpx 4rpx 16rpx; color: #333942; font-size: 28rpx; font-weight: 700; }
+.personal-list { overflow: hidden; border-radius: 14rpx; background: #fff; }
+.personal-activity { display: flex; min-height: 128rpx; padding: 20rpx; box-sizing: border-box; align-items: center; border-bottom: 2rpx solid #f0f1f3; }
+.personal-activity image { width: 108rpx; height: 88rpx; margin-right: 20rpx; flex: none; border-radius: 8rpx; background: #f1f2f4; }
+.personal-copy { display: flex; min-width: 0; flex: 1; flex-direction: column; }
+.personal-copy text:first-child { overflow: hidden; color: #252a32; font-size: 27rpx; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.personal-copy text:last-child { margin-top: 10rpx; color: #969ba4; font-size: 22rpx; }
+.personal-arrow { margin-left: 14rpx; color: #bec2c8; font-size: 38rpx; }
+.personal-empty { display: flex; padding: 150rpx 30rpx; align-items: center; flex-direction: column; color: #9298a1; font-size: 26rpx; }
+.personal-empty button { width: 280rpx; margin-top: 28rpx; border-radius: 8rpx; color: #fff; background: #eb4138; font-size: 27rpx; }

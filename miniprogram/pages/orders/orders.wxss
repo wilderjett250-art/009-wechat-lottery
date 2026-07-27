@@ -1,0 +1,17 @@
+.asset-empty {
+  display: flex;
+  padding: 180rpx 0;
+  flex-direction: column;
+  align-items: center;
+  color: #9aa0aa;
+}
+
+.asset-empty > text:first-child {
+  color: #6b7280;
+  font-size: 30rpx;
+}
+
+.asset-empty > text:last-child {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}

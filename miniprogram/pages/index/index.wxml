@@ -1,0 +1,64 @@
+<view class="home-page">
+  <view class="home-navbar {{compactNav || (!loading && !featuredPrizes.length) ? 'compact' : ''}}" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <text>抽奖助手</text>
+  </view>
+  <view wx:if="{{!loading && !featuredPrizes.length}}" class="home-nav-spacer" style="height: {{navMetrics.navHeight}}px;"></view>
+
+  <view class="home-hero" style="padding-top: calc({{navMetrics.navHeight}}px + 54rpx);" wx:if="{{featuredPrizes.length}}">
+    <text class="home-hero-title">官方大奖</text>
+    <swiper class="official-swiper" circular autoplay interval="5000" previous-margin="136rpx" next-margin="136rpx">
+      <swiper-item wx:for="{{featuredPrizes}}" wx:key="id">
+        <view class="official-slide" data-id="{{item.id}}" bindtap="openActivity">
+          <image src="{{item.image}}" mode="aspectFill" />
+          <text class="official-slide-name">{{item.title}}</text>
+          <button data-id="{{item.id}}" catchtap="openActivity">参与抽奖</button>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="cash-section {{featuredPrizes.length ? '' : 'no-hero'}}" wx:if="{{cashActivities.length}}">
+    <view class="cash-head">
+      <view>
+        <text class="cash-title">天天送现金</text>
+        <text class="cash-subtitle">红包活动由发起方真实配置，开奖后按规则发放</text>
+      </view>
+      <button class="cash-share-button" open-type="share">分享</button>
+    </view>
+    <scroll-view class="cash-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="cash-track">
+        <view class="cash-card" wx:for="{{cashActivities}}" wx:key="id" data-id="{{item.id}}" bindtap="openActivity">
+          <text class="cash-money">¥{{item.cashAmount}}</text>
+          <text class="cash-date">{{item.cashLabel}}</text>
+          <view wx:if="{{index === 0}}" class="cash-draw-circle">抽</view>
+          <button wx:else class="cash-remind-button" data-id="{{item.id}}" catchtap="remindCash">{{item.reminded ? '已提醒' : '提醒我'}}</button>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="today-section">
+    <view class="today-heading">
+      <view>
+        <text class="today-title">今日奖品</text>
+        <text class="today-subtitle">每日更新，活动数据实时同步</text>
+      </view>
+      <view class="back-top" bindtap="scrollTop">上首页</view>
+    </view>
+
+    <view wx:if="{{todayPrizes.length}}" class="today-list">
+      <view class="today-card" wx:for="{{todayPrizes}}" wx:key="id" data-id="{{item.id}}" bindtap="openActivity">
+        <image src="{{item.image}}" mode="aspectFill" />
+        <view class="today-card-body">
+          <text class="today-card-title">{{item.title}}</text>
+          <text class="today-countdown">{{item.countdownText}} 后开奖</text>
+          <button data-id="{{item.id}}" catchtap="openActivity">参与抽奖</button>
+        </view>
+      </view>
+    </view>
+    <view class="home-empty" wx:elif="{{!loading}}">
+      <text>今日暂无进行中的公开抽奖</text>
+    </view>
+  </view>
+</view>
+<privacy-popup />

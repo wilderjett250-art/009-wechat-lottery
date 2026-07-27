@@ -1,0 +1,169 @@
+.range-page {
+  min-height: 100vh;
+  padding-bottom: calc(126rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  background: #f4f4f4;
+}
+
+.range-nav {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  padding-right: 120rpx;
+  padding-left: 120rpx;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.range-back {
+  position: absolute;
+  bottom: 0;
+  left: 24rpx;
+  display: flex;
+  width: 76rpx;
+  height: 88rpx;
+  align-items: center;
+  font-size: 58rpx;
+  font-weight: 300;
+}
+
+.range-body {
+  padding: 24rpx;
+}
+
+.range-hint {
+  margin-bottom: 20rpx;
+  color: #858585;
+  font-size: 24rpx;
+}
+
+.range-loading,
+.range-error,
+.range-empty {
+  display: flex;
+  min-height: 620rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #8b8b8b;
+  font-size: 26rpx;
+}
+
+.range-error text:last-child {
+  margin-top: 16rpx;
+  color: #e84139;
+}
+
+.empty-box {
+  display: flex;
+  width: 138rpx;
+  height: 112rpx;
+  margin-bottom: 34rpx;
+  align-items: center;
+  justify-content: center;
+  border: 5rpx solid #333;
+  border-radius: 12rpx;
+  color: #333;
+  font-size: 78rpx;
+}
+
+.range-list {
+  overflow: hidden;
+  border-radius: 14rpx;
+  background: #fff;
+}
+
+.range-item {
+  display: flex;
+  min-height: 154rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  align-items: center;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.range-item:last-child {
+  border-bottom: 0;
+}
+
+.range-item image {
+  width: 112rpx;
+  height: 112rpx;
+  flex: 0 0 112rpx;
+  border-radius: 8rpx;
+  background: #eee;
+}
+
+.range-copy {
+  display: flex;
+  min-width: 0;
+  margin-left: 20rpx;
+  flex: 1;
+  flex-direction: column;
+}
+
+.range-copy text:first-child {
+  overflow: hidden;
+  color: #171717;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.range-copy text:nth-child(2),
+.range-copy text:nth-child(3) {
+  margin-top: 9rpx;
+  overflow: hidden;
+  color: #8a8a8a;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 22rpx;
+}
+
+.range-check {
+  display: flex;
+  width: 42rpx;
+  height: 42rpx;
+  margin-left: 18rpx;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #c9c9c9;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 26rpx;
+}
+
+.range-check.selected {
+  border-color: #eb443c;
+  background: #eb443c;
+}
+
+.range-footer {
+  position: fixed;
+  z-index: 30;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+}
+
+.range-footer button {
+  height: 88rpx;
+  border-radius: 8rpx;
+  color: #fff;
+  background: #eb443c;
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 88rpx;
+}
+
+.range-footer button::after {
+  border: 0;
+}

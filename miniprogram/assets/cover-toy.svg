@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#05305a"/>
+      <stop offset="1" stop-color="#08111f"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="520" fill="url(#bg)"/>
+  <rect x="24" y="28" width="72" height="25" rx="5" fill="#ef4444"/>
+  <text x="210" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="50" font-weight="900" fill="#facc15">POP CUBE</text>
+  <text x="210" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" fill="#fde68a">collectible blind box</text>
+  <g transform="translate(90 190) rotate(-8)">
+    <rect x="20" y="52" width="132" height="132" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="7"/>
+    <rect x="48" y="82" width="76" height="42" rx="12" fill="#111827"/>
+    <circle cx="69" cy="103" r="12" fill="#38bdf8"/>
+    <circle cx="103" cy="103" r="12" fill="#38bdf8"/>
+    <rect x="65" y="140" width="42" height="16" rx="8" fill="#f97316"/>
+  </g>
+  <g transform="translate(220 265) rotate(12)" opacity=".94">
+    <rect x="0" y="28" width="116" height="116" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="6"/>
+    <rect x="22" y="52" width="72" height="34" rx="10" fill="#111827"/>
+    <circle cx="42" cy="69" r="9" fill="#facc15"/>
+    <circle cx="75" cy="69" r="9" fill="#facc15"/>
+  </g>
+  <path d="M348 170l10 28 29 9-27 14 1 30-23-20-28 10 12-28-18-24 30 3z" fill="#facc15"/>
+</svg>

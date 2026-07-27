@@ -1,0 +1,18 @@
+<view class="annual-page">
+  <view class="annual-navbar" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <view class="annual-back" bindtap="goBack"><view></view></view>
+    <text>年会抽奖</text>
+    <view></view>
+  </view>
+  <scroll-view class="annual-content" style="top: {{navMetrics.navHeight}}px; height: calc(100vh - {{navMetrics.navHeight}}px);" scroll-y>
+    <view class="annual-curtain">
+      <view class="curtain-left"></view><view class="curtain-right"></view>
+      <text>年会抽奖</text>
+    </view>
+    <view class="annual-copy">适用于企业年会抽奖、线下布展活动等场景。支持多端展示、多人在线互动，营造便捷而有氛围的活动体验。</view>
+    <view class="annual-feature-grid">
+      <text>● 大幕投屏</text><text>● 弹幕互动</text><text>● 分次开奖</text><text>● 核验重抽</text><text>● 背景音效</text><text>● 参与人数不限</text>
+    </view>
+    <button class="annual-start" bindtap="startAnnualLottery">立即发起</button>
+  </scroll-view>
+</view>

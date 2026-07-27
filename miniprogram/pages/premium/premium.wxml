@@ -1,0 +1,13 @@
+<view class="premium-page">
+  <view class="premium-status active">
+    <text>高级功能免费开放</text>
+    <text>所有抽奖均可直接使用，不收取发布费用</text>
+  </view>
+  <view class="premium-list">
+    <view><text>纯净显示</text><text>活动传播页面不展示平台推荐内容</text></view>
+    <view><text>专属引流位</text><text>参与后和开奖后展示发起方信息</text></view>
+    <view><text>数据统计</text><text>查看活动访问、分享、参与和留言数据</text></view>
+    <view><text>参与风控</text><text>限制频繁参与和近期中奖用户</text></view>
+  </view>
+  <button bindtap="goCreate">去发起抽奖</button>
+</view>

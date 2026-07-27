@@ -1,0 +1,21 @@
+<view class="analytics-page">
+  <view class="analytics-summary">
+    <view><text>{{totals.views}}</text><text>访问</text></view>
+    <view><text>{{totals.shares}}</text><text>分享</text></view>
+    <view><text>{{totals.participants}}</text><text>参与</text></view>
+  </view>
+
+  <view class="analytics-title" wx:if="{{activities.length}}">活动数据</view>
+  <view class="analytics-list">
+    <view class="analytics-card" wx:for="{{activities}}" wx:key="id" data-id="{{item.id}}" bindtap="openActivity">
+      <image src="{{item.image}}" mode="aspectFill" />
+      <view class="analytics-copy">
+        <text>{{item.title}}</text>
+        <view><text>访问 {{item.viewCount}}</text><text>分享 {{item.shareCount}}</text><text>参与 {{item.participantCount}}</text></view>
+      </view>
+      <text class="analytics-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="analytics-empty" wx:if="{{!loading && !activities.length}}">发起抽奖后可查看真实推广数据</view>
+</view>

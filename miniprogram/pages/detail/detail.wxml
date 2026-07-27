@@ -1,0 +1,132 @@
+<view class="detail-page" wx:if="{{activity}}">
+  <view class="detail-topbar" style="top: {{navMetrics.menuButtonTop}}px; min-height: {{navMetrics.menuButtonHeight}}px;">
+    <view class="detail-back" bindtap="goBack" aria-role="button" aria-label="返回上一级"><view class="detail-back-icon"></view></view>
+  </view>
+
+  <view class="detail-hero">
+    <image src="{{activity.image}}" mode="aspectFill" />
+    <view wx:if="{{participantTicker}}" class="ticker" style="top: {{navMetrics.navHeight}}px;">{{participantTicker}}</view>
+  </view>
+
+  <view class="detail-card">
+    <text class="detail-title">{{activity.title}}</text>
+    <view class="prize-summary" wx:for="{{activity.prizes}}" wx:key="id">
+      <image src="{{item.image}}" mode="aspectFill" />
+      <view>
+        <text class="prize-name">{{item.name}} x {{item.quantity}} 份</text>
+        <text class="prize-rule">{{item.level}} · {{item.deliveryMethod || '发起人发货'}}</text>
+      </view>
+    </view>
+    <text class="draw-time">{{drawRuleText}}</text>
+  </view>
+
+  <view class="sponsor-card">
+    <view class="organizer-line">
+      <text class="organizer-mark"></text>
+      <text class="organizer-name">{{activity.organizer}}</text>
+      <text class="verified" wx:if="{{activity.organizerVerified}}">已认证</text>
+    </view>
+    <button class="sponsor-follow" bindtap="subscribeCreator">{{subscribedToCreator ? '已关注' : '关注'}}</button>
+  </view>
+
+  <view class="eligibility-card" wx:if="{{activity.conditions.groupOnly || activity.conditions.fansOnly || activity.conditions.review || activity.conditions.wecom || activity.conditions.region || activity.conditions.survey || activity.conditions.task || activity.conditions.answer || activity.conditions.vote}}">
+    <text class="eligibility-title">参与条件</text>
+    <view class="eligibility-row" wx:if="{{activity.conditions.groupOnly}}">
+      <text>{{activity.conditions.groupType === 'wecom' ? activity.conditions.enterpriseName : '指定微信群成员'}}</text><text>参与时校验</text>
+    </view>
+    <view class="eligibility-row" wx:if="{{activity.conditions.fansOnly}}">
+      <text>关注 {{activity.conditions.officialAccountName}}</text><text>微信身份校验</text>
+    </view>
+    <view class="eligibility-row" wx:if="{{activity.conditions.wecom}}">
+      <text>添加 {{activity.conditions.wecomName}}</text><text>联系人校验</text>
+    </view>
+    <view class="eligibility-row" wx:if="{{activity.conditions.region}}">
+      <text>{{activity.conditions.regionConfig.name}}</text><text>{{activity.conditions.regionConfig.radiusMeters}} 米内</text>
+    </view>
+    <view class="survey-field" wx:for="{{activity.conditions.surveyQuestions}}" wx:key="id">
+      <text>{{item.title}}</text>
+      <input data-question="{{item.id}}" value="{{surveyAnswers[item.id]}}" bindinput="onSurveyAnswerInput" maxlength="500" placeholder="请输入回答" />
+    </view>
+    <view class="survey-field" wx:if="{{activity.conditions.task}}">
+      <text>{{activity.conditions.taskText}}</text>
+      <text class="task-proof-tip" wx:if="{{activity.conditions.taskProofRequired}}">完成后上传截图凭证，运营审核通过后才能参与抽奖。</text>
+      <view class="task-proof-box" wx:if="{{activity.conditions.taskProofRequired && (activity.taskProgress.status === 'started' || activity.taskProgress.status === 'rejected')}}">
+        <view class="task-proof-upload {{taskProofUploaded ? 'uploaded' : ''}}" bindtap="chooseTaskProof">{{taskProofUploaded ? '凭证已上传，点击更换' : '上传任务凭证'}}</view>
+        <input data-field="taskProofNote" value="{{taskProofNote}}" bindinput="onEligibilityInput" maxlength="160" placeholder="可补充说明，便于运营审核" />
+      </view>
+      <text class="task-review-note" wx:if="{{activity.taskProgress.status === 'pending'}}">凭证已提交，等待运营审核。</text>
+      <text class="task-review-note rejected" wx:if="{{activity.taskProgress.status === 'rejected'}}">{{activity.taskProgress.reviewNote || '凭证未通过，请重新上传后提交。'}}</text>
+      <view class="task-confirm {{taskCompleted ? 'done' : ''}} {{activity.taskProgress.status === 'pending' ? 'waiting' : ''}}" bindtap="toggleTaskCompleted">{{taskActionText}}</view>
+    </view>
+    <view class="survey-field" wx:if="{{activity.conditions.answer}}">
+      <text>{{activity.conditions.answerQuestion}}</text>
+      <input data-field="answerText" value="{{answerText}}" bindinput="onEligibilityInput" maxlength="120" placeholder="请输入答案" />
+    </view>
+    <view class="survey-field" wx:if="{{activity.conditions.vote}}">
+      <text>{{activity.conditions.voteQuestion}}</text>
+      <view class="vote-options">
+        <view class="vote-option {{voteAnswer === item ? 'selected' : ''}}" wx:for="{{activity.conditions.voteOptions}}" wx:key="*this" data-option="{{item}}" bindtap="selectVote">{{item}}</view>
+      </view>
+    </view>
+    <view class="eligibility-row" wx:if="{{activity.conditions.review}}">
+      <text>参与申请需审核</text><text>{{joinStatus === 'pending' ? '审核中' : (joinStatus === 'rejected' ? '未通过' : '提交后审核')}}</text>
+    </view>
+    <view class="survey-field" wx:if="{{activity.conditions.review && activity.conditions.reviewPrompt}}">
+      <text>{{activity.conditions.reviewPrompt}}</text>
+    </view>
+  </view>
+
+  <view class="assist-card" wx:if="{{activity.conditions.assist && assistTargetId && assistTargetId !== activity.participantId}}">
+    <view><text>好友邀请你为本次抽奖助力</text><text class="assist-note">每次助力增加 {{activity.conditions.assistWeight}} 次抽奖权重</text></view>
+    <button bindtap="assistFriend" disabled="{{assisted}}">{{assisted ? '已助力' : '为好友助力'}}</button>
+  </view>
+
+  <view class="join-rank">
+    <button class="join-btn" bindtap="joinActivity" disabled="{{joinButtonDisabled}}">{{joinButtonText}}</button>
+    <text wx:if="{{(activity.conditions.assist || activity.conditions.checkIn) && joined}}">当前抽奖权重 {{activity.drawWeight}}</text>
+    <text wx:if="{{activity.conditions.assist && joined}}">已获 {{activity.effectiveAssistCount}} / {{activity.conditions.assistLimit}} 次助力</text>
+    <text wx:if="{{activity.conditions.checkIn && joined && activity.checkInProgress.status === 'completed'}}">打卡 {{activity.checkInProgress.bonusWeight}} 倍加成已生效</text>
+    <text>已有 {{activity.metrics.participantCount}} 人参与，查看排行榜 ›</text>
+  </view>
+
+  <view class="checkin-card" wx:if="{{activity.conditions.checkIn}}">
+    <view class="checkin-head"><text>参与后打卡任务</text><text>{{activity.checkInProgress.status === 'completed' ? '已完成' : '可获得权重'}}</text></view>
+    <text class="checkin-name">{{activity.conditions.checkInTask.title}}</text>
+    <text class="checkin-guide">{{activity.conditions.checkInTask.guideText}}</text>
+    <text class="checkin-countdown">{{checkInCountdownText}}</text>
+    <button class="checkin-action {{checkInActionDisabled ? 'disabled' : ''}}" bindtap="handleCheckInTask" disabled="{{checkInActionDisabled}}">{{checkInActionText}}</button>
+  </view>
+
+  <view class="notice-box">
+    <text class="notice-title">开奖提醒与兑奖说明</text>
+    <text wx:if="{{activity.description}}">{{activity.description}}</text>
+    <text wx:if="{{activity.leadInfo}}">{{activity.leadInfo}}</text>
+    <text>{{activity.sponsorText}}</text>
+    <text>中奖后请及时联系发起方兑奖，逾期未领取视为自愿放弃。</text>
+    <view class="detail-intro-images" wx:if="{{activity.introImages.length}}">
+      <image wx:for="{{activity.introImages}}" wx:key="*this" src="{{item}}" mode="widthFix" />
+    </view>
+  </view>
+
+  <view class="creator-subscribe-card" wx:if="{{activity.advanced.enabled && activity.advanced.futureSubscription}}">
+    <view><text>订阅发起人的后续抽奖</text><text>新活动会出现在“我的”消息中</text></view>
+    <button bindtap="subscribeCreator">{{subscribedToCreator ? '已关注' : '关注'}}</button>
+  </view>
+
+  <view class="comment-card" wx:if="{{activity.advanced.enabled && activity.advanced.comments}}">
+    <text class="comment-title">留言</text>
+    <view class="comment-compose">
+      <input data-field="commentText" value="{{commentText}}" bindinput="onEligibilityInput" maxlength="200" placeholder="写下你的留言" />
+      <button bindtap="submitComment">发送</button>
+    </view>
+    <view class="comment-row" wx:for="{{activity.comments}}" wx:key="id">
+      <text>{{item.nickname}}</text><text>{{item.content}}</text>
+    </view>
+  </view>
+
+  <view class="detail-bottom {{activity.promotion.hideShareButton ? 'single' : ''}}">
+    <button wx:if="{{!activity.promotion.hideShareButton}}" open-type="share">分享</button>
+    <button class="{{reminded ? 'reminded' : ''}}" bindtap="remind">{{reminded ? '已开启提醒' : '开奖提醒'}}</button>
+  </view>
+</view>
+<privacy-popup />

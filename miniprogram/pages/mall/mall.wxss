@@ -1,0 +1,11 @@
+.simple-business-page { min-height: 100vh; padding: 20rpx; box-sizing: border-box; background: #f3f4f6; }
+.business-card { display: flex; min-height: 132rpx; margin-bottom: 14rpx; padding: 16rpx; box-sizing: border-box; align-items: center; gap: 18rpx; border-radius: 10rpx; background: #fff; }
+.business-card image { width: 104rpx; height: 104rpx; flex: 0 0 104rpx; border-radius: 8rpx; }
+.business-card > view { display: flex; min-width: 0; flex: 1; flex-direction: column; }
+.business-card > view text:first-child { overflow: hidden; color: #20242a; text-overflow: ellipsis; white-space: nowrap; font-size: 27rpx; font-weight: 700; }
+.business-card > view text:last-child { margin-top: 10rpx; color: #8b9098; font-size: 22rpx; }
+.business-arrow { color: #a5a9af; font-size: 40rpx; }
+.business-empty { padding: 220rpx 0; color: #979ca5; text-align: center; font-size: 25rpx; }
+.mall-intro { display: flex; margin-bottom: 18rpx; padding: 26rpx; flex-direction: column; border-radius: 10rpx; background: #fff; }
+.mall-intro text:first-child { font-size: 30rpx; font-weight: 700; }
+.mall-intro text:last-child { margin-top: 10rpx; color: #858b94; font-size: 22rpx; }

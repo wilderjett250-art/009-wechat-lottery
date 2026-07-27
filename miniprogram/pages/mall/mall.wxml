@@ -1,0 +1,7 @@
+<view class="simple-business-page">
+  <view class="mall-intro"><text>商城奖品</text><text>展示发起方配置为“商城奖品”的真实活动</text></view>
+  <view class="business-card" wx:for="{{activities}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+    <image src="{{item.image}}" mode="aspectFill" /><view><text>{{item.title}}</text><text>{{item.metrics.remainingPrizeCount}} 份待开奖</text></view><text class="business-arrow">›</text>
+  </view>
+  <view class="business-empty" wx:if="{{!loading && !activities.length}}">当前暂无商城奖品活动</view>
+</view>

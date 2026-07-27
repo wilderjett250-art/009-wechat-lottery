@@ -1,0 +1,13 @@
+<view class="address-page">
+  <button class="wechat-address-button" bindtap="chooseWechatAddress">使用微信收货地址</button>
+  <view class="address-form">
+    <view class="address-row"><text>收货人</text><input value="{{form.userName}}" data-field="userName" bindinput="onInput" placeholder="填写收货人姓名" /></view>
+    <view class="address-row"><text>联系电话</text><input value="{{form.telNumber}}" data-field="telNumber" bindinput="onInput" type="number" placeholder="填写联系电话" /></view>
+    <view class="address-row"><text>省份</text><input value="{{form.provinceName}}" data-field="provinceName" bindinput="onInput" placeholder="省份" /></view>
+    <view class="address-row"><text>城市</text><input value="{{form.cityName}}" data-field="cityName" bindinput="onInput" placeholder="城市" /></view>
+    <view class="address-row"><text>区县</text><input value="{{form.countyName}}" data-field="countyName" bindinput="onInput" placeholder="区县" /></view>
+    <view class="address-row address-detail"><text>详细地址</text><textarea value="{{form.detailInfo}}" data-field="detailInfo" bindinput="onInput" maxlength="100" placeholder="街道、门牌号等详细地址" /></view>
+  </view>
+  <button class="address-save" loading="{{saving}}" bindtap="saveAddress">保存地址</button>
+</view>
+<privacy-popup />

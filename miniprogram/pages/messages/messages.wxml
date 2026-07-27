@@ -1,0 +1,20 @@
+<view class="messages-page">
+  <view class="message-list" wx:if="{{messages.length}}">
+    <view class="message-card" wx:for="{{messages}}" wx:key="id" data-activity-id="{{item.activityId}}" bindtap="openMessage">
+      <view class="message-icon">奖</view>
+      <view class="message-main">
+        <view class="message-head">
+          <text>{{item.title}}</text>
+          <text>{{item.timeText}}</text>
+        </view>
+        <text class="message-content">{{item.content}}</text>
+      </view>
+      <text class="message-arrow">›</text>
+    </view>
+  </view>
+  <view class="simple-empty" wx:elif="{{!loading}}">
+    <view class="simple-empty-icon">信</view>
+    <text>暂无消息</text>
+    <text>订阅开奖提醒后，相关消息会显示在这里</text>
+  </view>
+</view>

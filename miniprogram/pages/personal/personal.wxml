@@ -1,0 +1,29 @@
+<view class="personal-page">
+  <view class="personal-header" wx:if="{{profile}}">
+    <image src="{{profile.avatarImage}}" mode="aspectFill" />
+    <view>
+      <text class="personal-name">{{profile.nickname || '微信用户'}}</text>
+      <text class="personal-level">Lv {{profile.level || 1}} · 已发起 {{activities.length}} 场抽奖</text>
+    </view>
+  </view>
+
+  <view class="personal-title" wx:if="{{profile}}">发起的抽奖</view>
+  <view class="personal-list">
+    <view class="personal-activity" wx:for="{{activities}}" wx:key="id" data-id="{{item.id}}" bindtap="openActivity">
+      <image src="{{item.image}}" mode="aspectFill" />
+      <view class="personal-copy">
+        <text>{{item.title}}</text>
+        <text>{{item.metrics.participantCount}} 人参与 · {{item.metrics.remainingPrizeCount}} 份待开奖</text>
+      </view>
+      <text class="personal-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="personal-empty" wx:if="{{!loading && profile && !activities.length}}">
+    <text>还没有发起过抽奖</text>
+    <button bindtap="createActivity">去发起抽奖</button>
+  </view>
+  <view class="personal-empty" wx:if="{{!loading && !profile}}">
+    <text>微信登录后查看个人主页</text>
+  </view>
+</view>

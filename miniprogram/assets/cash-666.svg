@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 268">
+  <defs>
+    <linearGradient id="ticketBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f94a44"/>
+      <stop offset="1" stop-color="#ef3f3b"/>
+    </linearGradient>
+  </defs>
+  <rect width="236" height="268" rx="14" fill="url(#ticketBg)"/>
+  <rect x="0" y="28" width="236" height="70" fill="#ffc7d2"/>
+  <rect x="18" y="38" width="200" height="58" rx="8" fill="#ffd5de"/>
+  <text x="118" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="800" fill="#d94751">¥666</text>
+  <path d="M0 118c42 18 79 26 118 26s76-8 118-26" fill="none" stroke="#fff4e8" stroke-width="5" opacity=".95"/>
+  <circle cx="118" cy="190" r="55" fill="#fff8e3" stroke="#ffdba7" stroke-width="7"/>
+  <circle cx="118" cy="190" r="42" fill="none" stroke="#efcf9f" stroke-width="4"/>
+  <text x="118" y="211" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="52" font-weight="900" fill="#cb771a">抽</text>
+</svg>

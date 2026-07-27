@@ -1,0 +1,16 @@
+.annual-page { height: 100vh; overflow: hidden; background: #fff; }
+.annual-navbar { position: fixed; z-index: 20; top: 0; right: 0; left: 0; display: grid; padding-right: 28rpx; padding-left: 28rpx; box-sizing: border-box; grid-template-columns: 88rpx 1fr 88rpx; align-items: center; border-bottom: 2rpx solid #eee; background: #fff; }
+.annual-navbar > text { font-size: 34rpx; font-weight: 600; text-align: center; }
+.annual-back { display: flex; width: 76rpx; height: 76rpx; align-items: center; justify-content: center; }
+.annual-back view { width: 20rpx; height: 20rpx; border-bottom: 4rpx solid #111; border-left: 4rpx solid #111; transform: rotate(45deg); }
+.annual-content { position: absolute; right: 0; left: 0; box-sizing: border-box; }
+.annual-curtain { position: relative; display: flex; height: 360rpx; overflow: hidden; align-items: center; justify-content: center; background: linear-gradient(#fff7f7, #fff); }
+.annual-curtain text { z-index: 2; margin-top: 80rpx; color: #ef4038; font-size: 52rpx; font-weight: 700; }
+.curtain-left,.curtain-right { position: absolute; top: 0; width: 46%; height: 225rpx; background: repeating-linear-gradient(96deg,#ef8080 0,#ef8080 24rpx,#f7aaaa 26rpx,#f7aaaa 46rpx); box-shadow: 0 12rpx 28rpx rgba(187,34,34,.18); }
+.curtain-left { left: -8%; border-radius: 0 0 100% 0; transform: rotate(7deg); transform-origin: top left; }
+.curtain-right { right: -8%; border-radius: 0 0 0 100%; transform: rotate(-7deg); transform-origin: top right; }
+.annual-copy { padding: 12rpx 58rpx 32rpx; font-size: 28rpx; line-height: 1.75; }
+.annual-feature-grid { display: grid; padding: 0 58rpx; grid-template-columns: 1fr 1fr; gap: 24rpx 48rpx; color: #222; font-size: 27rpx; }
+.annual-feature-grid text { color: #222; }
+.annual-start { width: 320rpx; height: 82rpx; margin: 120rpx auto 50rpx; border-radius: 8rpx; color: #fff; background: #ed443c; font-size: 29rpx; line-height: 82rpx; }
+.annual-start::after { border: 0; }

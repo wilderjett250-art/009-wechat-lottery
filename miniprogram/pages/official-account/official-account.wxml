@@ -1,0 +1,38 @@
+<view class="authorization-page">
+  <view class="authorization-nav" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <view class="authorization-back" bindtap="goBack" aria-role="button" aria-label="返回上一级">
+      <view class="authorization-back-icon"></view>
+    </view>
+    <text>授权申请</text>
+    <view class="authorization-nav-spacer"></view>
+  </view>
+
+  <scroll-view class="authorization-content" style="top: {{navMetrics.navHeight}}px; height: calc(100vh - {{navMetrics.navHeight}}px);" scroll-y enhanced show-scrollbar="{{false}}">
+    <text class="authorization-label">选择已授权的公众号</text>
+
+    <view class="authorization-add" bindtap="addAuthorization" aria-role="button">
+      <text class="authorization-add-icon">+</text>
+      <text>添加新授权</text>
+    </view>
+
+    <view
+      class="account-option"
+      wx:for="{{accounts}}"
+      wx:key="key"
+      data-index="{{index}}"
+      bindtap="chooseAccount"
+    >
+      <view class="account-avatar">{{item.initial}}</view>
+      <view class="account-copy">
+        <text class="account-name">{{item.name}}</text>
+        <text class="account-username" wx:if="{{item.username}}">{{item.username}}</text>
+      </view>
+      <view class="selection-dot selected" wx:if="{{selectedKey === item.key}}"></view>
+    </view>
+
+    <view class="none-option {{selectedKey ? '' : 'selected'}}" bindtap="chooseNone" aria-role="button">
+      <text>不设置</text>
+      <view class="selection-dot" wx:if="{{selectedKey}}"></view>
+    </view>
+  </scroll-view>
+</view>

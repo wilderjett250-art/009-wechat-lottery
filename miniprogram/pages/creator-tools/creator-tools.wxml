@@ -1,0 +1,135 @@
+<view class="creator-tools-page">
+  <view class="creator-tools-nav" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <view class="nav-back" bindtap="goBack"><view></view></view>
+    <text>{{title}}</text>
+    <view class="nav-space"></view>
+  </view>
+
+  <view class="creator-tools-body">
+    <view class="loading-state" wx:if="{{loading}}">数据加载中...</view>
+
+    <block wx:elif="{{mode === 'activities' || mode === 'drafts'}}">
+      <view class="summary-strip">
+        <view><text>{{counts.activityCount || 0}}</text><text>全部活动</text></view>
+        <view><text>{{counts.liveCount || 0}}</text><text>进行中</text></view>
+        <view><text>{{counts.draftCount || 0}}</text><text>草稿</text></view>
+      </view>
+      <view class="manager-list" wx:if="{{activities.length}}">
+        <view class="activity-row" wx:for="{{activities}}" wx:key="id">
+          <image src="{{item.imageUrl}}" mode="aspectFill" data-id="{{item.id}}" bindtap="openActivity" />
+          <view class="activity-copy" data-id="{{item.id}}" bindtap="openActivity">
+            <view class="row-title-line">
+              <text>{{item.title}}</text>
+              <text class="status-pill status-{{item.status}}">{{item.statusLabel}}</text>
+            </view>
+            <text>{{item.participantCount}} 人参与 · {{item.winnerCount}} 人中奖</text>
+            <text>开奖：{{item.drawAtText}}</text>
+          </view>
+          <view class="row-actions" wx:if="{{item.canManage}}">
+            <button wx:if="{{item.status === 'draft'}}" data-id="{{item.id}}" data-status="live" bindtap="updateActivityStatus">发布</button>
+            <button wx:elif="{{item.status === 'live'}}" data-id="{{item.id}}" data-status="ended" bindtap="updateActivityStatus">结束</button>
+            <text wx:else>›</text>
+          </view>
+        </view>
+      </view>
+      <view class="empty-state" wx:else>
+        <view class="empty-box">□</view>
+        <text>{{emptyText}}</text>
+        <button bindtap="goBack">返回</button>
+      </view>
+    </block>
+
+    <block wx:elif="{{mode === 'claims'}}">
+      <view class="section-note">核销结果会实时保存，团队核销员也可按授权处理。</view>
+      <view class="manager-list" wx:if="{{claims.length}}">
+        <view class="claim-row" wx:for="{{claims}}" wx:key="id">
+          <image src="{{item.winner.avatarUrl}}" mode="aspectFill" />
+          <view class="claim-copy">
+            <view class="row-title-line"><text>{{item.prizeName}}</text><text class="status-pill {{item.claimed ? 'status-ended' : 'status-live'}}">{{item.claimed ? '已核销' : '待核销'}}</text></view>
+            <text>{{item.winner.nickname}} · {{item.activityTitle}}</text>
+            <text wx:if="{{item.resultCode}}">核销码：{{item.resultCode}}</text>
+            <text wx:if="{{item.winner.phone}}">联系电话：{{item.winner.phone}}</text>
+          </view>
+          <button class="claim-button {{item.claimed ? 'secondary' : ''}}" data-id="{{item.id}}" data-claimed="{{item.claimed}}" bindtap="toggleClaim">{{item.claimed ? '撤销' : '核销'}}</button>
+        </view>
+      </view>
+      <view class="empty-state" wx:else><view class="empty-box">核</view><text>{{emptyText}}</text></view>
+    </block>
+
+    <block wx:elif="{{mode === 'team'}}">
+      <view class="top-actions">
+        <button bindtap="createInvitation">邀请成员</button>
+        <button class="secondary" bindtap="acceptInvitation">加入团队</button>
+      </view>
+      <view class="section-title" wx:if="{{createdTeam.length}}">我的团队</view>
+      <view class="manager-list" wx:if="{{createdTeam.length}}">
+        <view class="team-row" wx:for="{{createdTeam}}" wx:key="id">
+          <view class="team-avatar">{{item.status === 'active' ? '员' : '邀'}}</view>
+          <view class="team-copy">
+            <text>{{item.memberNickname || item.displayName}}</text>
+            <text>{{item.roleLabel}} · {{item.status === 'active' ? '已加入' : '待接受'}}</text>
+            <text wx:if="{{item.status === 'invited'}}">邀请码：{{item.inviteCode}}</text>
+          </view>
+          <view class="team-actions">
+            <button wx:if="{{item.status === 'invited'}}" data-code="{{item.inviteCode}}" bindtap="copyInvite">复制</button>
+            <button class="danger" data-id="{{item.id}}" bindtap="removeTeam">移除</button>
+          </view>
+        </view>
+      </view>
+      <view class="section-title" wx:if="{{joinedTeam.length}}">我加入的团队</view>
+      <view class="manager-list" wx:if="{{joinedTeam.length}}">
+        <view class="team-row" wx:for="{{joinedTeam}}" wx:key="id">
+          <view class="team-avatar">团</view>
+          <view class="team-copy"><text>{{item.creatorName}}</text><text>{{item.roleLabel}}</text></view>
+          <button class="claim-button secondary" data-id="{{item.id}}" bindtap="removeTeam">退出</button>
+        </view>
+      </view>
+      <view class="empty-state" wx:if="{{!createdTeam.length && !joinedTeam.length}}"><view class="empty-box">团</view><text>{{emptyText}}</text></view>
+    </block>
+
+    <block wx:elif="{{mode === 'blacklist'}}">
+      <view class="top-actions single"><button bindtap="addBlacklist">从活动参与者中添加</button></view>
+      <view class="section-note">加入黑名单后，该用户将不能参与你发起的所有抽奖。</view>
+      <view class="manager-list" wx:if="{{blacklistEntries.length}}">
+        <view class="blacklist-row" wx:for="{{blacklistEntries}}" wx:key="id">
+          <view class="team-avatar blocked">禁</view>
+          <view class="team-copy"><text>{{item.nickname}}</text><text>来自：{{item.sourceActivityTitle}}</text><text wx:if="{{item.reason}}">{{item.reason}}</text></view>
+          <button class="claim-button secondary" data-id="{{item.id}}" bindtap="removeBlacklist">移出</button>
+        </view>
+      </view>
+      <view class="empty-state" wx:else><view class="empty-box">禁</view><text>{{emptyText}}</text></view>
+    </block>
+
+    <block wx:elif="{{mode === 'growth'}}">
+      <view class="growth-card">
+        <image src="{{overview.profile.avatarUrl}}" mode="aspectFill" />
+        <view><text>{{overview.profile.nickname || '微信用户'}}</text><text>Lv {{overview.profile.level || 1}}</text></view>
+      </view>
+      <view class="growth-grid">
+        <view><text>{{overview.stats.total || 0}}</text><text>参与抽奖</text></view>
+        <view><text>{{overview.stats.created || 0}}</text><text>发起抽奖</text></view>
+        <view><text>{{overview.stats.won || 0}}</text><text>中奖记录</text></view>
+        <view><text>{{overview.creator.liveCount || 0}}</text><text>进行中</text></view>
+        <view><text>{{overview.creator.teamCount || 0}}</text><text>团队成员</text></view>
+        <view><text>{{overview.creator.pendingClaimCount || 0}}</text><text>待核销</text></view>
+      </view>
+      <view class="growth-rule">
+        <text>成长记录</text>
+        <view><text>创建并完成抽奖活动</text><text>持续积累发起经验</text></view>
+        <view><text>完成中奖核销</text><text>提升活动履约记录</text></view>
+        <view><text>使用团队协作</text><text>多人共同管理活动</text></view>
+      </view>
+    </block>
+
+    <block wx:elif="{{mode === 'prizes'}}">
+      <view class="manager-list" wx:if="{{prizes.length}}">
+        <view class="prize-row" wx:for="{{prizes}}" wx:key="id" data-id="{{item.activityId}}" bindtap="openActivity">
+          <view class="prize-icon">奖</view>
+          <view class="prize-copy"><text>{{item.prizeName}}</text><text>{{item.activityTitle}}</text><text>{{item.createdAtText}}</text></view>
+          <view class="prize-state {{item.claimed ? 'claimed' : ''}}">{{item.claimed ? '已核销' : '待领取'}}</view>
+        </view>
+      </view>
+      <view class="empty-state" wx:else><view class="empty-box">奖</view><text>{{emptyText}}</text></view>
+    </block>
+  </view>
+</view>

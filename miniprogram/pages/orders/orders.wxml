@@ -1,0 +1,17 @@
+<view class="asset-page">
+  <view class="asset-section-title">我的订单</view>
+  <view class="order-card" wx:for="{{orders}}" wx:key="id">
+    <view>
+      <text class="asset-row-title">{{item.title}}</text>
+      <text class="asset-row-sub">{{item.dateText}}</text>
+    </view>
+    <view class="order-side">
+      <text>{{item.statusText}}</text>
+      <text class="asset-row-sub">¥{{item.amountText}}</text>
+    </view>
+  </view>
+  <view class="asset-empty" wx:if="{{!orders.length}}">
+    <text>暂无订单</text>
+    <text>奖品兑换和商城订单会显示在这里</text>
+  </view>
+</view>

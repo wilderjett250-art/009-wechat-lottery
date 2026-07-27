@@ -1,0 +1,53 @@
+.wallet-hero {
+  position: relative;
+}
+
+.wallet-withdraw {
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+  width: 132rpx;
+  height: 58rpx;
+  border-radius: 32rpx;
+  color: #c80f2e;
+  background: #fff;
+  font-size: 25rpx;
+  line-height: 58rpx;
+}
+
+.wallet-withdraw::after {
+  border: 0;
+}
+
+.wallet-record-side {
+  text-align: right;
+}
+
+.wallet-record-side > text:last-child {
+  display: block;
+  margin-top: 6rpx;
+  color: #9298a2;
+  font-size: 22rpx;
+}
+
+.asset-amount.expense {
+  color: #4b5563;
+}
+
+.asset-empty {
+  display: flex;
+  padding: 130rpx 0;
+  flex-direction: column;
+  align-items: center;
+  color: #9aa0aa;
+}
+
+.asset-empty > text:first-child {
+  color: #6b7280;
+  font-size: 30rpx;
+}
+
+.asset-empty > text:last-child {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+}

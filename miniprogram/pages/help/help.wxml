@@ -1,0 +1,7 @@
+<view class="help-page">
+  <view class="help-section" wx:for="{{sections}}" wx:key="title">
+    <text class="help-title">{{item.title}}</text>
+    <text class="help-body">{{item.body}}</text>
+  </view>
+  <button class="help-service" open-type="contact">联系客服</button>
+</view>

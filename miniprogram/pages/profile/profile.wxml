@@ -1,0 +1,136 @@
+<view class="profile-page creator-mine-page">
+  <view class="mine-navbar" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">我的</view>
+
+  <view class="mine-summary-card">
+    <view class="mine-user-row" bindtap="login">
+      <image class="mine-avatar" src="{{profile.avatarImage}}" mode="aspectFill" />
+      <view class="mine-user-copy">
+        <view class="mine-name-line">
+          <text class="mine-user-name">{{profile.nickname}}</text>
+          <text class="mine-level" wx:if="{{profile.level}}">Lv {{profile.level}}</text>
+        </view>
+        <text class="mine-profile-hint">{{authenticated ? '点击更新个人信息' : '点击设置头像和昵称后登录'}}</text>
+      </view>
+      <text class="mine-user-arrow">›</text>
+    </view>
+
+    <view class="mine-stats">
+      <view class="mine-stat" data-key="all" bindtap="openFeature">
+        <text>{{stats.total}}</text>
+        <text>全部抽奖</text>
+      </view>
+      <view class="mine-stat" data-key="created" bindtap="openFeature">
+        <text>{{stats.created}}</text>
+        <text>发起抽奖</text>
+      </view>
+      <view class="mine-stat" data-key="won" bindtap="openFeature">
+        <text>{{stats.won}}</text>
+        <text>中奖记录</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mine-launch-banner" wx:if="{{authenticated && stats.created === 0}}" data-key="launch" bindtap="openFeature">
+    <text>还没发起过抽奖？</text>
+    <text>创建你的第一个真实抽奖活动</text>
+    <view>去发起抽奖 ›</view>
+  </view>
+
+  <view class="mine-grid mine-assets-grid">
+    <view class="mine-entry" data-key="wallet" bindtap="openFeature">
+      <view class="mine-outline-icon asset-wallet">¥</view>
+      <text>红包余额</text>
+      <text class="entry-value">¥{{wallet.balance}}</text>
+    </view>
+    <view class="mine-entry" data-key="coupons" bindtap="openFeature">
+      <view class="mine-outline-icon asset-coupon">券</view>
+      <text>优惠券</text>
+      <text class="entry-value">{{couponCount}} 张可用</text>
+    </view>
+    <view class="mine-entry" data-key="orders" bindtap="openFeature">
+      <view class="mine-outline-icon asset-order">单</view>
+      <text>订单</text>
+      <text class="entry-value">{{orderCount}} 条</text>
+    </view>
+    <view class="mine-entry" data-key="mall" bindtap="openFeature">
+      <view class="mine-outline-icon asset-mall">店</view>
+      <text>商城</text>
+      <text class="entry-value">奖品专区</text>
+    </view>
+  </view>
+
+  <view class="mine-section-card creator-section">
+    <view class="mine-section-head">
+      <text>发起人功能</text>
+      <text>{{creator.liveCount}} 个活动进行中</text>
+    </view>
+    <view class="creator-feature-grid">
+      <view class="creator-feature" wx:for="{{creatorFeatures}}" wx:key="key" data-key="{{item.key}}" bindtap="openFeature">
+        <view class="creator-icon">
+          <text>{{item.icon}}</text>
+          <text class="creator-badge" wx:if="{{item.badge > 0}}">{{item.badge > 99 ? '99+' : item.badge}}</text>
+        </view>
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mine-service-list">
+    <view class="service-row" data-key="wallet" bindtap="openFeature">
+      <view class="service-icon">¥</view>
+      <text>钱包余额</text>
+      <text class="service-value">¥{{wallet.balance}}</text>
+      <text class="service-arrow">›</text>
+    </view>
+    <view class="service-row" data-key="orders" bindtap="openFeature">
+      <view class="service-icon">单</view>
+      <text>我的订单</text>
+      <text class="service-value">{{orderCount}} 条</text>
+      <text class="service-arrow">›</text>
+    </view>
+    <view class="service-row" data-key="prizes" bindtap="openFeature">
+      <view class="service-icon">奖</view>
+      <text>我的奖品</text>
+      <text class="service-value">{{creator.prizeCount}} 件</text>
+      <text class="service-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="mine-section-card common-section">
+    <view class="common-feature-grid">
+      <view class="creator-feature" wx:for="{{commonFeatures}}" wx:key="key" data-key="{{item.key}}" bindtap="openFeature">
+        <view class="creator-icon common-icon"><text>{{item.icon}}</text></view>
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="mine-brand">
+    <text>— 抽奖工具独立实现 —</text>
+    <text>当前页面数据来自已登录的微信账号</text>
+  </view>
+</view>
+
+<view class="profile-editor-mask" wx:if="{{profileEditor.visible}}" bindtap="closeProfileEditor">
+  <view class="profile-editor-sheet" catchtap="stopPropagation">
+    <view class="profile-editor-head">
+      <text class="profile-editor-close" bindtap="closeProfileEditor">×</text>
+      <view>
+        <text>设置头像、昵称</text>
+        <text>用于展示发起人和参与者身份</text>
+      </view>
+    </view>
+    <button class="avatar-picker" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image src="{{profileEditor.avatarPreview}}" mode="aspectFill" />
+      <text>修改头像</text>
+    </button>
+    <view class="nickname-field">
+      <text>昵称</text>
+      <input type="nickname" maxlength="16" value="{{profileEditor.nickname}}" bindinput="onNicknameInput" placeholder="输入昵称，不超过 16 个字" />
+    </view>
+    <button class="profile-confirm" loading="{{savingProfile || avatarPreparing}}" disabled="{{savingProfile || avatarPreparing}}" bindtap="confirmProfile">
+      {{avatarPreparing ? '正在处理头像' : (authenticated ? '保存个人信息' : '同意协议并微信登录')}}
+    </button>
+  </view>
+</view>
+<privacy-popup />

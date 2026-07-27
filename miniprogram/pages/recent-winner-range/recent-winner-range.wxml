@@ -1,0 +1,35 @@
+<view class="range-page">
+  <view class="range-nav" style="height: {{navMetrics.navHeight}}px; padding-top: {{navMetrics.statusBarHeight}}px;">
+    <view class="range-back" bindtap="goBack">‹</view>
+    <text>选择近期抽奖范围</text>
+  </view>
+
+  <view class="range-body">
+    <view class="range-hint">仅显示最近 1 个月已结束的本人发起抽奖</view>
+    <view class="range-loading" wx:if="{{loading}}">正在读取真实抽奖数据</view>
+    <view class="range-error" wx:elif="{{errorMessage}}" bindtap="loadActivities">
+      <text>{{errorMessage}}</text>
+      <text>点击重新加载</text>
+    </view>
+    <view class="range-empty" wx:elif="{{!activities.length}}">
+      <view class="empty-box">⌑</view>
+      <text>最近 1 个月没有已结束的抽奖</text>
+    </view>
+    <view class="range-list" wx:else>
+      <view class="range-item" wx:for="{{activities}}" wx:key="id" data-id="{{item.id}}" bindtap="toggleActivity">
+        <image src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="range-copy">
+          <text>{{item.title}}</text>
+          <text>{{item.prizeText}}</text>
+          <text>{{item.drawDateText}} 已结束 · {{item.winnerCount}} 人中奖</text>
+        </view>
+        <view class="range-check {{item.selected ? 'selected' : ''}}">{{item.selected ? '✓' : ''}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="range-footer">
+    <button wx:if="{{activities.length}}" bindtap="confirmSelection">确定（{{selectedIds.length}}）</button>
+    <button wx:else bindtap="goBack">返回</button>
+  </view>
+</view>

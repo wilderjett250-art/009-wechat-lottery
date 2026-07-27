@@ -1,0 +1,12 @@
+.promotion-page { min-height: 100vh; padding: 24rpx; box-sizing: border-box; background: #f3f3f3; }
+.promotion-intro { display: flex; padding: 30rpx; flex-direction: column; border-radius: 14rpx; background: #fff; }
+.promotion-intro text:first-child { color: #20242b; font-size: 32rpx; font-weight: 700; }
+.promotion-intro text:last-child { margin-top: 12rpx; color: #858b94; font-size: 23rpx; line-height: 1.6; }
+.promotion-list { margin-top: 20rpx; overflow: hidden; border-radius: 14rpx; background: #fff; }
+.promotion-card { display: grid; min-height: 136rpx; padding: 20rpx; box-sizing: border-box; grid-template-columns: 112rpx minmax(0, 1fr) 88rpx; gap: 18rpx; align-items: center; border-bottom: 2rpx solid #f0f1f3; }
+.promotion-card image { width: 112rpx; height: 92rpx; border-radius: 8rpx; background: #f0f1f3; }
+.promotion-copy { display: flex; min-width: 0; flex-direction: column; }
+.promotion-copy text:first-child { overflow: hidden; color: #252a31; text-overflow: ellipsis; white-space: nowrap; font-size: 27rpx; font-weight: 600; }
+.promotion-copy text:last-child { margin-top: 10rpx; color: #969ca5; font-size: 22rpx; }
+.promotion-empty { display: flex; padding: 180rpx 20rpx; align-items: center; flex-direction: column; color: #90969f; font-size: 26rpx; }
+.promotion-empty button { width: 280rpx; margin-top: 28rpx; color: #fff; background: #ef443c; font-size: 27rpx; }

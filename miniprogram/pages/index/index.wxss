@@ -1,0 +1,356 @@
+.home-page {
+  min-height: 100vh;
+  padding-bottom: 30rpx;
+  background: #f3f3f3;
+}
+
+.home-navbar {
+  position: fixed;
+  z-index: 80;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  padding-right: 180rpx;
+  padding-left: 180rpx;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2rpx solid transparent;
+  background: transparent;
+  pointer-events: none;
+  transition: background-color .18s ease, border-color .18s ease;
+}
+
+.home-navbar text {
+  opacity: 0;
+  color: #161616;
+  font-size: 32rpx;
+  font-weight: 600;
+  transition: opacity .18s ease;
+  white-space: nowrap;
+}
+
+.home-navbar.compact {
+  border-bottom-color: #eeeeee;
+  background: rgba(255, 255, 255, .98);
+}
+
+.home-navbar.compact text {
+  opacity: 1;
+}
+
+.home-nav-spacer {
+  width: 100%;
+  background: #fff;
+}
+
+.home-hero {
+  position: relative;
+  padding: 128rpx 0 78rpx;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f23450 0%, #f56579 40%, #f8cbd3 78%, #f3f3f3 100%);
+}
+
+.home-hero-title {
+  display: block;
+  margin-bottom: 30rpx;
+  color: #fff;
+  text-align: center;
+  font-size: 42rpx;
+  font-weight: 700;
+}
+
+.official-swiper {
+  height: 566rpx;
+}
+
+.official-swiper swiper-item {
+  box-sizing: border-box;
+  padding: 0 12rpx;
+}
+
+.official-slide {
+  display: flex;
+  height: 536rpx;
+  padding: 16rpx 16rpx 24rpx;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 18rpx;
+  background: #fff;
+  box-shadow: 0 18rpx 44rpx rgba(82, 25, 34, .16);
+}
+
+.official-slide image {
+  width: 100%;
+  height: 348rpx;
+  border-radius: 12rpx;
+  background: #f2f2f2;
+}
+
+.official-slide-name {
+  display: block;
+  width: 100%;
+  margin: 18rpx 0 14rpx;
+  overflow: hidden;
+  color: #151515;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 29rpx;
+}
+
+.official-slide button,
+.today-card button {
+  display: flex;
+  height: 68rpx;
+  margin: 0;
+  padding: 0 34rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  color: #fff;
+  background: #ed443b;
+  font-size: 27rpx;
+  font-weight: 700;
+  line-height: 68rpx;
+}
+
+.official-slide button::after,
+.today-card button::after,
+.cash-section button::after {
+  border: 0;
+}
+
+.cash-section {
+  margin-top: -42rpx;
+  padding: 0 18rpx 32rpx;
+  background: #f3f3f3;
+}
+
+.cash-section.no-hero {
+  margin-top: 0;
+  padding-top: 24rpx;
+}
+
+.cash-head,
+.today-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cash-head {
+  padding: 0 8rpx 18rpx;
+}
+
+.cash-title,
+.today-title {
+  display: block;
+  color: #151515;
+  font-size: 36rpx;
+  font-weight: 800;
+}
+
+.cash-subtitle,
+.today-subtitle {
+  display: block;
+  margin-top: 7rpx;
+  color: #8a8a8a;
+  font-size: 23rpx;
+}
+
+.cash-share-button,
+.back-top {
+  display: flex;
+  height: 56rpx;
+  padding: 0 24rpx;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #dddddd;
+  border-radius: 30rpx;
+  color: #6d6d6d;
+  background: #fff;
+  font-size: 23rpx;
+}
+
+.cash-scroll {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.cash-track {
+  display: inline-flex;
+  gap: 14rpx;
+}
+
+.cash-card {
+  position: relative;
+  display: flex;
+  width: 204rpx;
+  height: 268rpx;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10rpx;
+  color: #fff;
+  background: #ef473f;
+}
+
+.cash-money {
+  margin-bottom: 18rpx;
+  font-size: 44rpx;
+}
+
+.cash-date {
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.cash-draw-circle {
+  position: absolute;
+  bottom: 18rpx;
+  left: 50%;
+  z-index: 3;
+  display: flex;
+  width: 92rpx;
+  height: 92rpx;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+  border: 6rpx solid #f5d7b1;
+  border-radius: 50%;
+  color: #c77a21;
+  background: #fff9e5;
+  font-size: 42rpx;
+  font-weight: 800;
+}
+
+.cash-remind-button {
+  margin-top: 22rpx;
+  color: #fff;
+  background: transparent;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.cash-section .cash-card {
+  flex: 0 0 204rpx;
+  width: 204rpx;
+  height: 268rpx;
+  margin-right: 0;
+  padding: 0 10rpx;
+  justify-content: flex-start;
+}
+
+.cash-section .cash-card .cash-money {
+  position: absolute;
+  top: 30rpx;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  margin: 0;
+  font-size: 44rpx;
+  line-height: 54rpx;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cash-section .cash-card .cash-date {
+  position: absolute;
+  top: 92rpx;
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 42rpx;
+  padding: 0 8rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 25rpx;
+  line-height: 42rpx;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cash-section .cash-card .cash-remind-button {
+  position: absolute;
+  bottom: 26rpx;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 44rpx;
+  margin: 0;
+  padding: 0;
+  font-size: 26rpx;
+  line-height: 44rpx;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.today-section {
+  padding: 24rpx 18rpx 30rpx;
+}
+
+.today-heading {
+  padding: 0 8rpx 20rpx;
+}
+
+.today-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.today-card {
+  overflow: hidden;
+  border-radius: 14rpx;
+  background: #fff;
+  box-shadow: 0 4rpx 14rpx rgba(0, 0, 0, .04);
+}
+
+.today-card > image {
+  display: block;
+  width: 100%;
+  height: 360rpx;
+  background: #f4f4f4;
+}
+
+.today-card-body {
+  display: flex;
+  padding: 24rpx 20rpx 30rpx;
+  flex-direction: column;
+  align-items: center;
+}
+
+.today-card-title {
+  width: 100%;
+  overflow: hidden;
+  color: #161616;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 30rpx;
+}
+
+.today-countdown {
+  margin: 10rpx 0 22rpx;
+  color: #c8444d;
+  font-size: 25rpx;
+  font-weight: 600;
+}
+
+.home-empty {
+  display: flex;
+  min-height: 280rpx;
+  align-items: center;
+  justify-content: center;
+  color: #929292;
+  font-size: 26rpx;
+}
