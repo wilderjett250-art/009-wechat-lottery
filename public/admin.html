@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>抽奖工具运营后台</title>
+    <link rel="stylesheet" href="/styles.css?v=20260722-home-sync" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <b>抽奖工具</b>
+          <span>运营后台</span>
+        </div>
+        <button class="nav-item active" data-admin-view="activities">活动管理 <span>01</span></button>
+        <button class="nav-item" data-admin-view="prizes">奖品与开奖 <span>02</span></button>
+        <button class="nav-item" data-admin-view="participants">参与名单 <span>03</span></button>
+        <button class="nav-item" data-admin-view="winners">中奖核销 <span>04</span></button>
+        <button class="nav-item" data-admin-view="withdrawals">提现处理 <span>05</span></button>
+        <button class="nav-item" data-admin-view="integrations">微信能力 <span>06</span></button>
+        <button class="nav-item" data-admin-view="comments">留言审核 <span>07</span></button>
+        <button class="nav-item" data-admin-view="partnerships">合作申请 <span>08</span></button>
+      </aside>
+      <section class="admin-main">
+        <header class="admin-header">
+          <div>
+            <h1 id="adminTitle">活动管理</h1>
+            <p id="adminDescription">创建抽奖活动、配置奖品、执行开奖并处理中奖领取状态。</p>
+          </div>
+          <div class="header-actions">
+            <a class="btn secondary" href="/mini" target="_blank">打开微信小程序入口</a>
+            <button class="btn secondary" type="button" data-admin-logout>退出后台</button>
+          </div>
+        </header>
+
+        <div id="activityWorkspace">
+          <section id="summary" class="summary-grid"></section>
+
+          <section class="admin-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h2>抽奖活动</h2>
+              <button id="newActivityBtn" class="btn">新建活动</button>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>活动</th>
+                    <th>状态</th>
+                    <th>参与</th>
+                    <th>奖品</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="activityRows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <h2 id="detailTitle">活动详情</h2>
+              <span id="detailStatus" class="status">状态</span>
+            </div>
+            <div id="detailBody" class="panel-body"></div>
+          </div>
+          </section>
+        </div>
+
+        <section id="withdrawalPanel" class="panel" hidden>
+          <div class="panel-head">
+            <h2>提现申请</h2>
+            <span class="status">后台处理</span>
+          </div>
+          <div class="panel-body">
+            <table class="table withdrawal-table">
+              <thead>
+                <tr><th>用户</th><th>金额</th><th>时间</th><th>状态</th><th>操作</th></tr>
+              </thead>
+              <tbody id="withdrawalRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="integrationPanel" class="panel" hidden>
+          <div class="panel-head">
+            <h2>微信能力状态</h2>
+            <span class="status">服务端校验</span>
+          </div>
+          <div id="integrationBody" class="panel-body"></div>
+        </section>
+
+        <section id="commentPanel" class="panel" hidden>
+          <div class="panel-head">
+            <h2>活动留言</h2>
+            <span class="status">内容管理</span>
+          </div>
+          <div class="panel-body">
+            <table class="table operations-table">
+              <thead>
+                <tr><th>用户</th><th>活动</th><th>留言内容</th><th>状态</th><th>操作</th></tr>
+              </thead>
+              <tbody id="commentRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="partnershipPanel" class="panel" hidden>
+          <div class="panel-head">
+            <h2>推广合作申请</h2>
+            <span class="status">业务跟进</span>
+          </div>
+          <div class="panel-body">
+            <table class="table operations-table">
+              <thead>
+                <tr><th>联系人</th><th>公司或品牌</th><th>联系方式</th><th>合作需求</th><th>状态</th><th>操作</th></tr>
+              </thead>
+              <tbody id="partnershipRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <script src="/admin.js?v=20260722-home-sync" type="module"></script>
+  </body>
+</html>

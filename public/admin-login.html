@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>抽奖工具后台登录</title>
+    <link rel="stylesheet" href="/styles.css?v=20260727-entry" />
+  </head>
+  <body class="entry-page">
+    <main class="entry-shell admin-login-shell">
+      <section class="entry-hero">
+        <p class="entry-kicker">运营后台</p>
+        <h1>抽奖工具</h1>
+        <p>请输入后台访问密钥，进入活动配置、参与审核和开奖管理。</p>
+      </section>
+      <form id="adminLoginForm" class="entry-activities admin-login-form">
+        <label class="field">
+          <span>后台访问密钥</span>
+          <input name="token" type="password" autocomplete="current-password" required />
+        </label>
+        <button class="btn" type="submit">安全登录</button>
+        <p id="adminLoginMessage" class="entry-hint" role="status"></p>
+      </form>
+    </main>
+    <script src="/admin-login.js?v=20260727-entry" type="module"></script>
+  </body>
+</html>

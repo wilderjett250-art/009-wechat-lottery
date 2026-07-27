@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>抽奖工具微信小程序入口</title>
+    <link rel="stylesheet" href="/styles.css?v=20260727-entry" />
+  </head>
+  <body class="mini-page entry-page">
+    <main id="miniApp" class="entry-shell" aria-label="抽奖工具微信小程序入口">
+      <section class="entry-hero">
+        <p class="entry-kicker">微信小程序</p>
+        <h1>抽奖工具</h1>
+        <p>活动创建、参与、打卡和开奖均在微信小程序中完成。</p>
+        <a id="launchLink" class="entry-launch" hidden target="_blank" rel="noopener noreferrer">打开微信小程序</a>
+        <p id="launchHint" class="entry-hint">正在读取小程序入口状态…</p>
+      </section>
+      <section class="entry-activities" aria-labelledby="activityHeading">
+        <div class="entry-section-head">
+          <h2 id="activityHeading">当前活动</h2>
+          <span id="activityUpdated">正在同步</span>
+        </div>
+        <div id="activityList" class="entry-list" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="/mini.js?v=20260727-entry" type="module"></script>
+  </body>
+</html>

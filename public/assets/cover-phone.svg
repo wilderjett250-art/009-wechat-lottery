@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#050609"/>
+      <stop offset=".55" stop-color="#111827"/>
+      <stop offset="1" stop-color="#25112b"/>
+    </linearGradient>
+    <linearGradient id="phoneA" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset=".5" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="phoneB" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f5f3ff"/>
+      <stop offset=".5" stop-color="#94a3b8"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="520" fill="url(#bg)"/>
+  <text x="210" y="72" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#f8fafc">xiaomi 17 Pro</text>
+  <text x="210" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#e2e8f0">more screens, more moments</text>
+  <g transform="translate(70 165) rotate(-8)">
+    <rect width="118" height="244" rx="22" fill="#020617" stroke="#64748b" stroke-width="5"/>
+    <rect x="11" y="12" width="96" height="220" rx="16" fill="url(#phoneA)"/>
+    <circle cx="36" cy="44" r="18" fill="#020617" stroke="#c4b5fd" stroke-width="5"/>
+    <circle cx="75" cy="44" r="15" fill="#020617" stroke="#67e8f9" stroke-width="5"/>
+    <circle cx="39" cy="84" r="14" fill="#020617" stroke="#a78bfa" stroke-width="5"/>
+  </g>
+  <g transform="translate(205 135) rotate(10)">
+    <rect width="126" height="262" rx="24" fill="#020617" stroke="#e2e8f0" stroke-width="5"/>
+    <rect x="12" y="13" width="102" height="236" rx="17" fill="url(#phoneB)"/>
+    <rect x="26" y="33" width="72" height="52" rx="14" fill="#f8fafc"/>
+    <circle cx="46" cy="58" r="13" fill="#0f172a"/>
+    <circle cx="78" cy="58" r="13" fill="#0f172a"/>
+    <path d="M35 155c35-40 65-40 91 0v62H35z" transform="translate(-18 0)" fill="#111827" opacity=".75"/>
+  </g>
+  <path d="M40 454c80-50 142-40 207-12 54 24 92 18 137-22" fill="none" stroke="#a78bfa" stroke-width="8" opacity=".35"/>
+</svg>

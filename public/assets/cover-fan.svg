@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ecfeff"/>
+      <stop offset="1" stop-color="#cffafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="520" fill="url(#bg)"/>
+  <text x="210" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="900" fill="#164e63">COOL FAN</text>
+  <text x="210" y="112" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#0e7490">summer wearable gift</text>
+  <g transform="translate(82 150)">
+    <path d="M68 112c-28 42-38 83-30 124 10 50 53 70 93 54" fill="none" stroke="#0891b2" stroke-width="20" stroke-linecap="round"/>
+    <path d="M190 112c28 42 38 83 30 124-10 50-53 70-93 54" fill="none" stroke="#0891b2" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="72" cy="96" r="62" fill="#fff" stroke="#67e8f9" stroke-width="10"/>
+    <circle cx="190" cy="96" r="62" fill="#fff" stroke="#67e8f9" stroke-width="10"/>
+    <path d="M72 44v104M20 96h104M36 60l72 72M108 60l-72 72" stroke="#0e7490" stroke-width="7" stroke-linecap="round"/>
+    <path d="M190 44v104M138 96h104M154 60l72 72M226 60l-72 72" stroke="#0e7490" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="72" cy="96" r="12" fill="#0e7490"/>
+    <circle cx="190" cy="96" r="12" fill="#0e7490"/>
+  </g>
+</svg>

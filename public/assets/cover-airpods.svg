@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#e0f2fe"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="520" fill="url(#bg)"/>
+  <text x="210" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="38" font-weight="900" fill="#0f172a">AirPods Pro 3</text>
+  <text x="210" y="112" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#475569">quiet commute kit</text>
+  <g transform="translate(92 160)" fill="#fff" stroke="#cbd5e1" stroke-width="7">
+    <path d="M73 0c38 0 67 27 67 66 0 34-23 57-54 62v126c0 19-13 33-31 33s-31-14-31-33V83C9 73 0 58 0 40 0 17 24 0 73 0z"/>
+    <path d="M236 0c-38 0-67 27-67 66 0 34 23 57 54 62v126c0 19 13 33 31 33s31-14 31-33V83c15-10 24-25 24-43 0-23-24-40-73-40z"/>
+  </g>
+  <circle cx="210" cy="410" r="58" fill="#bae6fd" opacity=".8"/>
+</svg>
