@@ -40,7 +40,7 @@ flowchart LR
 ## 从 ZIP 开始复现 / Reproduce from ZIP
 
 1. 下载 ZIP 并解压。
-2. 复制 ...env.example 为 ...env，填写本地数据库和平台配置。
+2. 复制 `.env.example` 为 `.env`，填写本地数据库和平台配置。
 3. 执行 npm install。
 4. 执行 npm start 或按 docker-compose.yml 启动。
 5. 微信小程序导入 miniprogram 目录，后台入口按 README 打开。
